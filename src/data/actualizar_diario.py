@@ -34,7 +34,7 @@ from pathlib import Path
 
 # Rutas relativas al raíz del repositorio para que funcionen tanto en local
 # como en GitHub Actions.
-BASE_DIR    = Path(__file__).resolve().parent.parent  # raíz del repo
+BASE_DIR    = Path(__file__).resolve().parent.parent.parent  # raíz del repo
 
 RUTA_CSV    = BASE_DIR / "data" / "csv" / "raw" / "df_merged.csv"
 DIR_BACKUPS = BASE_DIR / "data" / "csv" / "backups"
