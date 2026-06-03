@@ -1,0 +1,6 @@
+pandas
+numpy
+requests
+hmmlearn
+scikit-learn
+joblib

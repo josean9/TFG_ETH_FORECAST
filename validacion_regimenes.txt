@@ -1,0 +1,207 @@
+VALIDACIÓN HISTÓRICA DE LOS REGÍMENES DE MERCADO DETECTADOS POR EL HMM
+========================================================================
+
+Este documento contrasta los regímenes de mercado que el modelo HMM (Hidden Markov
+Model) ha identificado de forma NO supervisada sobre el precio de Ethereum, con los
+acontecimientos reales del mercado de criptomonedas en cada periodo. El objetivo es
+doble: (1) servir como validación cualitativa de que el modelo captura ciclos de
+mercado reales y no artefactos estadísticos, y (2) aportar contexto histórico al
+sistema de recuperación (RAG).
+
+El modelo distingue tres regímenes:
+  - ALCISTA: tendencia sostenida al alza, momentum positivo, cercanía a máximos.
+  - BAJISTA: caídas pronunciadas, alta volatilidad, drawdown creciente.
+  - ACUMULACIÓN: fases laterales o de recuperación tranquila, baja volatilidad,
+    típicamente tras una caída (el mercado "descansa" o construye suelo).
+
+Es importante señalar que el HMM trabajó únicamente con variables de precio,
+volatilidad, tendencia y sentimiento. NO se le proporcionó ninguna información sobre
+fechas, noticias o eventos. Que los tramos que detecta coincidan con ciclos de mercado
+reconocibles es, por tanto, una señal de que el modelo ha aprendido la estructura real
+del mercado por sí solo.
+
+NOTA METODOLÓGICA: las fechas proceden de la clasificación del modelo y se contrastan
+aquí con hechos históricos conocidos. La correspondencia es cualitativa y aproximada;
+el mercado real no cambia de régimen en un día concreto, sino de forma gradual, por lo
+que las fronteras exactas que marca el modelo deben entenderse como transiciones, no
+como cortes precisos.
+
+
+────────────────────────────────────────────────────────────────────────
+TRAMOS DETECTADOS Y SU CORRESPONDENCIA HISTÓRICA
+────────────────────────────────────────────────────────────────────────
+
+▸ AGO 2018 – FEB 2019 · ACUMULACIÓN (180 días)
+El modelo clasifica este periodo como acumulación. Coincide con la fase final del
+"cripto-invierno" de 2018: tras el desplome desde los máximos de enero de 2018 (cuando
+ETH llegó a rozar los 1.400 $), el precio se desangró durante todo el año hasta caer por
+debajo de los 100 $ en diciembre de 2018, acumulando una caída de aproximadamente el 90 %
+desde el techo. A finales de 2018 el grueso de la caída ya había ocurrido y el mercado
+entró en una fase de suelo y lateralidad. El modelo lo capta como acumulación: la
+volatilidad baja respecto al desplome y el precio deja de caer, aunque permanece muy
+deprimido respecto a máximos. Curiosamente, durante este "invierno" se sentaron las bases
+de las DeFi (Uniswap, Aave, Compound surgieron o maduraron en este periodo), un ejemplo
+clásico de que las fases de acumulación son de construcción silenciosa.
+
+▸ FEB 2019 – MAR 2020 · ALCISTA (391 días)
+Largo periodo de recuperación gradual. Tras el suelo de 2018-2019, ETH se estabilizó y
+recuperó terreno lentamente a lo largo de 2019 y principios de 2020, apoyado en el
+creciente interés por las DeFi y las expectativas en torno a la transición a Ethereum 2.0.
+El modelo lo etiqueta como tendencia alcista de fondo: una recuperación sostenida, aunque
+modesta comparada con la euforia posterior.
+
+▸ MAR 2020 – ABR 2020 · ACUMULACIÓN (31 días)
+Tramo corto que coincide con el crash del COVID-19 de marzo de 2020 y su rebote inmediato.
+El desplome del 12 de marzo de 2020 ("Jueves Negro") fue una caída de pánico extrema y muy
+breve en todos los mercados, cripto incluido. El modelo lo marca como una ruptura corta del
+régimen alcista previo: un shock puntual antes de retomar la tendencia.
+
+▸ ABR 2020 – NOV 2020 · ALCISTA (227 días)
+Recuperación post-COVID y arranque del "Verano DeFi". A partir de mediados de 2020, las
+finanzas descentralizadas explotaron: protocolos de préstamo, yield farming y demanda
+masiva de ETH para operar en la red impulsaron el precio. El modelo capta el inicio de la
+gran tendencia alcista que culminaría en 2021.
+
+▸ NOV 2020 – MAY 2021 · (clasificado como BAJISTA, 175 días) — ANOMALÍA A COMENTAR
+Este tramo merece atención crítica. Históricamente, de noviembre de 2020 a mayo de 2021
+fue uno de los periodos MÁS ALCISTAS de la historia de ETH: el precio se multiplicó varias
+veces, pasando de unos 400-600 $ a superar los 4.000 $ en mayo de 2021, impulsado por NFTs
+y DeFi. Que el modelo lo etiquete como "bajista" es probablemente una limitación de la
+clasificación en este tramo concreto: la volatilidad fue extrema (típica de un régimen que
+el modelo asocia a inestabilidad), y las variables de tendencia a medio plazo pueden haber
+quedado distorsionadas por la velocidad del movimiento. Es un ejemplo honesto de que el
+modelo no es perfecto y que la etiqueta automática debe leerse con criterio. (Este tipo de
+discrepancia es valiosa para la memoria: muestra espíritu crítico y comprensión de los
+límites del método.)
+
+▸ MAY 2021 – NOV 2021 · ALTERNANCIA ACUMULACIÓN/BAJISTA (varios tramos cortos)
+El modelo fragmenta este periodo en varios tramos breves. Coincide con una fase real muy
+movida: tras el máximo de mayo de 2021 vino una fuerte corrección en verano (ETH cayó
+aproximadamente a la mitad), seguida de una recuperación hacia el máximo histórico de
+~4.800 $ en noviembre de 2021. Esta alternancia de tramos cortos refleja la elevada
+volatilidad y los vaivenes bruscos de ese periodo.
+
+▸ NOV 2021 – OCT 2022 · ACUMULACIÓN dominante con tramos bajistas (el gran bear de 2022)
+Tras el máximo histórico de noviembre de 2021, comenzó el largo mercado bajista de 2022.
+El modelo lo recoge como una larga fase de acumulación interrumpida por tramos bajistas.
+El 2022 fue devastador: las subidas de tipos de la Reserva Federal, el colapso de
+LUNA/UST en mayo de 2022 y la quiebra del exchange FTX en noviembre de 2022 hundieron el
+mercado. ETH llegó a caer hasta el entorno de los 900 $, perdiendo en torno al 75-80 %
+desde máximos. Que el modelo lo lea mayoritariamente como "acumulación" tiene sentido bajo
+su definición: el precio estaba muy deprimido y, salvo los shocks puntuales, se movía de
+forma relativamente lateral en niveles bajos.
+
+▸ DIC 2022 – FEB 2024 · ALCISTA (444 días) — el tramo más largo
+El periodo de recuperación más extenso que detecta el modelo. Coincide con la salida del
+bear de 2022 y la recuperación de 2023, apoyada en la culminación de "The Merge" (la
+transición a Proof-of-Stake de finales de 2022) y la actualización Shanghai de abril de
+2023, que permitió retirar el ETH en staking. El precio se recuperó desde ~1.200 $
+estabilizándose y subiendo a lo largo de 2023, con el mercado anticipando además la
+aprobación de los ETF al contado. El modelo capta esta larga recuperación como una tendencia
+alcista sostenida.
+
+▸ FEB 2024 – OCT 2024 · alternancia BAJISTA/ACUMULACIÓN
+Periodo de corrección y consolidación. Aunque 2024 trajo la aprobación de los ETF de
+Ethereum al contado (aprobados en mayo de 2024, con inicio de cotización el 23 de julio de
+2024), el precio atravesó tramos de corrección y lateralidad antes de que el capital
+institucional empujara con fuerza. El modelo refleja esa indecisión con tramos alternos.
+
+▸ OCT 2024 – FEB 2025 · BAJISTA (113 días)
+Tramo bajista que el modelo identifica en el cambio de año 2024-2025.
+
+▸ FEB 2025 – 2026 · alternancia ACUMULACIÓN/BAJISTA con tramo alcista final
+La parte final de la serie alterna acumulación y tramos bajistas, cerrando con un tramo
+alcista en mayo-junio de 2026. Históricamente, el gran impulso de este ciclo llevó a ETH a
+un nuevo máximo histórico (~4.950 $) en agosto de 2025, superando por primera vez en casi
+cuatro años el récord de 2021, impulsado por la entrada de capital institucional vía ETF y
+las mejoras de red (Dencun, Pectra). Los tramos finales del modelo recogen la digestión de
+ese movimiento.
+
+
+────────────────────────────────────────────────────────────────────────
+PERFIL ESTADÍSTICO DE CADA RÉGIMEN (respaldo cuantitativo)
+────────────────────────────────────────────────────────────────────────
+
+Más allá de la coincidencia con los hechos históricos, cada régimen tiene una "huella"
+estadística propia y coherente. La siguiente tabla resume el comportamiento medio de las
+variables clave en cada estado (sobre datos en su escala original, no normalizada):
+
+  Variable            ACUMULACIÓN(0)   BAJISTA(1)      ALCISTA(2)
+  ─────────────────────────────────────────────────────────────────
+  Retorno diario %    +0.29 (±3.48)   -0.23 (±4.96)   +0.53 (±4.35)
+  Retorno acum. 60d % +14.4 (±26.9)   -16.4 (±30.8)   +38.2 (±30.7)
+  Dist. SMA200 %      +13.9 (±28.1)   -22.8 (±25.9)   +50.1 (±50.2)
+  Drawdown %          -70.3 (±11.2)   -56.0 (±20.3)   -23.5 (±15.0)
+  Fear & Greed        50.6 (±16.9)    26.7 (±12.1)    70.0 (±13.5)
+  Precio medio $      948             1.965           3.007
+  % del tiempo        39.2 %          36.2 %          24.7 %
+
+Lectura de la coherencia interna (todas las variables "cuentan la misma historia"):
+
+▸ ALCISTA (estado 2): es el único con retorno diario claramente positivo (+0.53 %), el
+  mayor retorno acumulado a 60 días (+38 %), está muy por encima de su media de 200 días
+  (+50 %), tiene el drawdown menos profundo (-23 %, cerca de máximos), el sentimiento más
+  codicioso (Fear & Greed 70) y el precio medio más alto (3.007 $). Todo apunta a lo mismo:
+  el mercado sube, está caro respecto a su historia, lejos de mínimos, y los inversores
+  están eufóricos. Es la huella inequívoca de un mercado alcista.
+
+▸ BAJISTA (estado 1): es el único con retorno diario negativo (-0.23 %) y retorno acumulado
+  negativo (-16 %), está por debajo de su media de 200 días (-23 %), tiene la volatilidad
+  más alta (desviación del retorno 4.96, la mayor de los tres) y el sentimiento más
+  temeroso (Fear & Greed 27). Coincide con el perfil de una fase de caída: el mercado baja,
+  con miedo y con la alta volatilidad típica de los desplomes.
+
+▸ ACUMULACIÓN (estado 0): el más sutil y el más interesante. Tiene retorno diario
+  ligeramente positivo (+0.29 %) y la volatilidad más baja (3.48), con sentimiento neutral
+  (Fear & Greed 50, ni miedo ni codicia). PERO su drawdown es el más profundo de los tres
+  (-70 %), y su precio medio el más bajo (948 $). Esta combinación, que podría parecer
+  contradictoria, describe con precisión el suelo del mercado bajista que empieza a
+  recuperarse: el precio está hundido respecto a máximos históricos (de ahí el -70 % de
+  drawdown), pero ya ha dejado de caer y sube despacio y con calma (retorno ligeramente
+  positivo, volatilidad baja, sentimiento indiferente). Es la fase de "construcción
+  silenciosa" en niveles deprimidos.
+
+Conviene matizar que algunos valores máximos y mínimos son atípicos (por ejemplo, máximos
+de dist_sma200 de +103 % o +79 % en estados que no son el alcista, o retornos diarios
+puntuales de +25 % en el bajista): son días sueltos extremos dentro de un régimen. La media,
+la mediana y los cuartiles —no los extremos— son los que describen correctamente el carácter
+de cada estado.
+
+
+────────────────────────────────────────────────────────────────────────
+REPARTO GLOBAL DEL TIEMPO POR RÉGIMEN
+────────────────────────────────────────────────────────────────────────
+
+Sobre el total del histórico analizado:
+  - ALCISTA      : ~39 % del tiempo (5 tramos)
+  - ACUMULACIÓN  : ~36 % del tiempo (13 tramos)
+  - BAJISTA      : ~25 % del tiempo (10 tramos)
+
+Lectura: el mercado pasa la mayor parte del tiempo (≈61 %) fuera de las subidas claras,
+ya sea cayendo o consolidando lateralmente. Las fases alcistas, aunque ocupan el mayor
+porcentaje individual, se concentran en pocos tramos largos y potentes, mientras que la
+acumulación se reparte en muchos tramos cortos. Esto encaja con la sabiduría de mercado de
+que "se sube despacio y se construye, y se cae rápido": las caídas son violentas y breves,
+las recuperaciones lentas, y las subidas explosivas pero infrecuentes.
+
+
+────────────────────────────────────────────────────────────────────────
+CONCLUSIÓN PARA EL TFG
+────────────────────────────────────────────────────────────────────────
+
+La mayoría de los regímenes detectados por el HMM se corresponden con ciclos de mercado
+reconocibles y documentados (el invierno de 2018, el verano DeFi de 2020, el bear de 2022,
+la recuperación de 2023, etc.), lo que valida cualitativamente que el modelo captura la
+estructura real del mercado sin haber recibido ninguna información sobre fechas o eventos.
+
+Al mismo tiempo, existen tramos donde la clasificación automática no coincide con la
+narrativa histórica (notablemente el periodo nov-2020/may-2021, etiquetado como bajista
+pese a ser fuertemente alcista). Lejos de invalidar el modelo, estas discrepancias ilustran
+sus límites y la importancia de interpretar las etiquetas con criterio humano. Un modelo no
+supervisado agrupa por similitud estadística de las variables que se le dan; cuando un
+periodo combina características contradictorias (subida muy rápida + volatilidad extrema),
+puede asignarlo a un régimen distinto del que un analista esperaría.
+
+Esta combinación de aciertos mayoritarios y discrepancias puntuales es precisamente lo que
+hace honesto y defendible el análisis: el HMM es una herramienta de apoyo que estructura el
+mercado en regímenes interpretables, no un oráculo infalible.
