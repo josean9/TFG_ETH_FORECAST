@@ -85,10 +85,9 @@ def main():
     print(f"✓ Variables calculadas: {len(reg)} filas con datos completos")
 
     # ─── 4. Escalar -> PCA -> HMM (con los objetos guardados) ─────────────
-    X  = scaler.transform(reg[vars_regimen].values)   # MISMO scaler del entrenamiento
-    Xp = pca.transform(X)                             # MISMO PCA
-    estados = hmm.predict(Xp)                         # clasificar
-
+    X = scaler.transform(reg[vars_regimen].values)    # escalar las 5 variables
+    estados = hmm.predict(X)                           # el HMM usa las 5 directamente
+    
     reg["estado_hmm"] = estados
     reg["regimen"]    = [nombres.get(int(e), f"Estado {e}") for e in estados]
 
