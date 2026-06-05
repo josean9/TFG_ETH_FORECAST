@@ -24,6 +24,10 @@ from pathlib import Path
 import requests
 import feedparser
 import pandas as pd
+from dotenv import load_dotenv
+
+# Carga el .env desde la raíz del repo (3 niveles arriba de src/data/)
+load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env", override=True)
 
 try:
     from palabras_clave import PALABRAS_CLAVE, TOPE_RELEVANCIA

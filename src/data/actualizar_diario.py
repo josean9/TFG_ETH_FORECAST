@@ -10,14 +10,16 @@ Lo que hace:
   3. Si faltan 1-7 días, descarga de CoinGecko (BTC, ETH, total mcap) y
      Alternative.me (Fear & Greed).
   4. Calcula dominancias reales con el total mcap del momento (CoinGecko /global).
-  5. Hace backup del CSV anterior en data/csv/backups/.
-  6. Mergea, deduplica y guarda el CSV actualizado.
+  5. Inflación y tipos de interés desde FRED (API oficial de la Reserva Federal);
+     si FRED falla, cae a forward-fill del último valor conocido.
+  6. Hace backup del CSV anterior en data/csv/backups/.
+  7. Mergea, deduplica y guarda el CSV actualizado.
 
 Si faltan más de 7 días, sale con código 1 (error) y avisa para usar el
 script manual de CoinGecko Global Charts.
 
 Diseñado para ejecutarse desde la raíz del repositorio:
-  python scripts/actualizar_diario.py
+  python src/data/actualizar_diario.py
 """
 
 import os
@@ -32,8 +34,6 @@ from pathlib import Path
 
 # ─── CONFIGURACIÓN ────────────────────────────────────────────────────────
 
-# Rutas relativas al raíz del repositorio para que funcionen tanto en local
-# como en GitHub Actions.
 BASE_DIR    = Path(__file__).resolve().parent.parent.parent  # raíz del repo
 
 RUTA_CSV    = BASE_DIR / "data" / "csv" / "raw" / "df_merged.csv"
@@ -42,11 +42,20 @@ DIR_BACKUPS = BASE_DIR / "data" / "csv" / "backups"
 # APIs
 COINGECKO_BASE   = "https://api.coingecko.com/api/v3"
 ALTERNATIVE_BASE = "https://api.alternative.me/fng/"
+FRED_BASE        = "https://api.stlouisfed.org/fred/series/observations"
 
-# Rate limit (free tier ~10-30 calls/min, vamos conservadores)
+# Clave de FRED (gratuita, en el .env como FRED_API_KEY)
+FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
+
+# Series de FRED:
+#   - Inflación interanual (%): se calcula desde el índice CPIAUCSL (variación 12 meses).
+#     FRED puede devolverlo ya calculado con units="pc1" (percent change from year ago).
+#   - Tipo de interés: FEDFUNDS (Federal Funds Effective Rate, en %).
+FRED_SERIE_INFLACION = "CPIAUCSL"
+FRED_SERIE_TIPOS     = "FEDFUNDS"
+
+# Rate limit
 PAUSA_API = 2.5
-
-# Si faltan más días que esto, el script avisa para usar el script manual
 MAX_DIAS_AUTO = 7
 
 
@@ -122,6 +131,55 @@ def descargar_fear_greed(limit_dias):
     )
 
 
+def _fred_ultimo_valor(serie, units=None):
+    """Devuelve el último valor disponible de una serie de FRED (float) o None."""
+    if not FRED_API_KEY:
+        return None
+    params = {
+        "series_id": serie,
+        "api_key": FRED_API_KEY,
+        "file_type": "json",
+        "sort_order": "desc",
+        "limit": 5,                  # los últimos por si el más reciente viene vacío
+    }
+    if units:
+        params["units"] = units      # 'pc1' = variación % interanual
+    try:
+        data = get_con_reintento(FRED_BASE, params)
+        for obs in data.get("observations", []):
+            v = obs.get("value", ".")
+            if v not in (".", "", None):
+                return round(float(v), 2)
+    except Exception as e:
+        print(f"  ⚠️  FRED {serie} falló: {e}")
+    return None
+
+
+def obtener_macro(df_merged):
+    """
+    Devuelve (inflacion, fed_rate). Intenta FRED; si falla, usa el último
+    valor conocido del CSV (forward-fill). Así nunca se rompe el pipeline.
+    """
+    # Inflación: variación interanual del CPI (units='pc1' -> % year-over-year)
+    inflacion = _fred_ultimo_valor(FRED_SERIE_INFLACION, units="pc1")
+    # Tipos: Federal Funds Rate (ya viene en %)
+    fed_rate = _fred_ultimo_valor(FRED_SERIE_TIPOS)
+
+    if inflacion is not None:
+        print(f"  ✓ FRED inflación (CPI YoY): {inflacion}%")
+    else:
+        inflacion = round(float(df_merged["inflation"].iloc[-1]), 2)
+        print(f"  ⚠️  Inflación: usando último valor del CSV ({inflacion}%)")
+
+    if fed_rate is not None:
+        print(f"  ✓ FRED tipos (FEDFUNDS): {fed_rate}%")
+    else:
+        fed_rate = round(float(df_merged["fed_rate"].iloc[-1]), 2)
+        print(f"  ⚠️  Tipos: usando último valor del CSV ({fed_rate}%)")
+
+    return inflacion, fed_rate
+
+
 # ─── PIPELINE PRINCIPAL ───────────────────────────────────────────────────
 
 def main():
@@ -152,17 +210,15 @@ def main():
     print(f"Total filas actuales: {len(df_merged)}")
     print()
 
-    # Salida temprana: ya al día
     if dias_faltan <= 0:
         print("✓ El CSV ya está al día. No hay nada que actualizar.")
-        sys.exit(0)  # éxito limpio para GitHub Actions
+        sys.exit(0)
 
-    # Salida temprana: hueco demasiado grande
     if dias_faltan > MAX_DIAS_AUTO:
         print(f"⚠️  Faltan {dias_faltan} días, más del umbral seguro de {MAX_DIAS_AUTO}.")
         print("   Para huecos grandes, usa el script manual con el CSV de")
         print("   CoinGecko Global Charts para evitar extrapolar dominancias.")
-        sys.exit(1)  # fallo: requiere intervención manual
+        sys.exit(1)
 
     print(f"→ Procediendo a descargar {dias_faltan} día(s) nuevo(s).\n")
 
@@ -191,14 +247,14 @@ def main():
     df_fg = descargar_fear_greed(limit_dias=dias_validos + 5)
     print(f"  {len(df_fg)} filas")
 
+    print("\n→ Macro (inflación y tipos) desde FRED...")
+    inflacion, fed_rate = obtener_macro(df_merged)
+
     # ─── 3. Construcción del DataFrame nuevo ─────────────────────────────
     print("\n" + "─" * 60)
     print("Construyendo DataFrame nuevo...")
 
-    # Combinar BTC + ETH
     df_nuevo = df_btc.join(df_eth, how="outer")
-
-    # Filtrar solo días estrictamente nuevos
     df_nuevo = df_nuevo[df_nuevo.index > ultima_fecha].copy()
     print(f"Días nuevos a añadir: {len(df_nuevo)}")
 
@@ -206,28 +262,23 @@ def main():
         print("✓ No hay días nuevos tras filtrar. Salida limpia.")
         sys.exit(0)
 
-    # Dominancias usando el total mcap actual (error <0.5% para 1-2 días)
     df_nuevo["btc_dominance"] = df_nuevo["btc_mcap"] / total_mcap_actual
     df_nuevo["eth_dominance"] = df_nuevo["eth_mcap"] / total_mcap_actual
     df_nuevo["alt_dominance"] = 1 - df_nuevo["btc_dominance"] - df_nuevo["eth_dominance"]
 
-    # OHLC desde close (limitación API gratuita)
     for activo in ("btc", "eth"):
         df_nuevo[f"{activo}_open"] = df_nuevo[f"{activo}_close"]
         df_nuevo[f"{activo}_high"] = df_nuevo[f"{activo}_close"]
         df_nuevo[f"{activo}_low"]  = df_nuevo[f"{activo}_close"]
 
-    # Fear & Greed
     df_nuevo = df_nuevo.join(df_fg, how="left")
     df_nuevo["fear_greed"]      = df_nuevo["fear_greed"].ffill()
     df_nuevo["FearGreed_Label"] = df_nuevo["FearGreed_Label"].ffill()
 
-    # Inflation y fed_rate: forward-fill desde el último valor
-    # (se actualizan manualmente cuando sale el dato mensual)
-    df_nuevo["inflation"] = df_merged["inflation"].iloc[-1]
-    df_nuevo["fed_rate"]  = df_merged["fed_rate"].iloc[-1]
+    # Inflación y tipos desde FRED (o forward-fill si FRED falló)
+    df_nuevo["inflation"] = inflacion
+    df_nuevo["fed_rate"]  = fed_rate
 
-    # Reordenar columnas igual que el CSV viejo
     df_nuevo = df_nuevo[df_merged.columns.tolist()]
     df_nuevo.index.name = "date"
 
@@ -236,7 +287,6 @@ def main():
     print(f"Nulos: {nulos}")
     if nulos > 0:
         print("⚠️  Hay nulos en el DataFrame nuevo. Revisar antes de seguir.")
-        # No abortamos; los ffill posteriores deberían cubrirlo, pero avisamos.
 
     # ─── 4. Backup y merge ───────────────────────────────────────────────
     print("\n" + "─" * 60)

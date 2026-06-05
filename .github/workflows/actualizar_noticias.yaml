@@ -1,0 +1,35 @@
+name: Actualizar noticias diarias
+
+on:
+  schedule:
+    - cron: '30 8 * * *'   # 08:30 UTC todos los días (antes que el de datos, o cuando prefieras)
+  workflow_dispatch:        # también ejecutable a mano
+
+permissions:
+  contents: write           # para poder hacer push del CSV de noticias
+
+jobs:
+  noticias:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements-noticias.txt
+
+      - name: Actualizar noticias (descarga + filtro + puntuación)
+        env:
+          NEWSDATA_KEY: ${{ secrets.NEWSDATA_KEY }}
+        run: python src/data/actualizar_noticias.py
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/news/
+          git diff --staged --quiet || git commit -m "Actualización de noticias $(date +%Y-%m-%d)"
+          git push
