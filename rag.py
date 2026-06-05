@@ -205,9 +205,19 @@ def _indexar_embebidos():
     print(f"  Embebidos: {len(docs)} docs, {total_chars:,} chars → "
           f"{len(chunks)} chunks de ~{size} chars")
 
-    M = np.array(embed_texts([c["text"] for c in chunks]), dtype=np.float32)
-    M = M / (np.linalg.norm(M, axis=1, keepdims=True) + 1e-9)
-    _emb_chunks, _emb_matrix = chunks, M
+    # Si los embeddings fallan (p.ej. 429 RESOURCE_EXHAUSTED por agotar la cuota
+    # gratuita de Google), NO tumbamos la app: arranca igual, solo que sin el
+    # buscador de documentos embebidos. Los TXT fijos y las noticias no dependen
+    # de esto, así que el RAG sigue respondiendo casi completo.
+    try:
+        M = np.array(embed_texts([c["text"] for c in chunks]), dtype=np.float32)
+        M = M / (np.linalg.norm(M, axis=1, keepdims=True) + 1e-9)
+        _emb_chunks, _emb_matrix = chunks, M
+    except Exception as e:
+        _emb_chunks, _emb_matrix = [], None
+        print(f"  ⚠️ No se pudieron calcular los embeddings ({e}).")
+        print("     La app arrancará SIN buscador de documentos embebidos "
+              "(probable cuota de Google agotada; reponer y reiniciar).")
 
 
 def _cargar_noticias():
@@ -461,7 +471,6 @@ def calcular_snapshot(fecha=None):
         ventana_ano = serie_vol.iloc[-365:] if len(serie_vol) >= 365 else serie_vol
         if vol_hoy is not None and len(ventana_ano) > 0:
             vol_percentil = round((ventana_ano < vol_hoy).sum() / len(ventana_ano) * 100, 1)
-
 
     # ── Comparativas temporales (hoy vs 2sem/1mes/2meses/3meses) ──────
     comp_precio_eth = _comparativa(sub, "eth_close")
@@ -880,5 +889,12 @@ def responder(pregunta, proveedor="gemini", historial=""):
     return respuesta, fuentes
 
 
-# Inicializar al importar
-inicializar()
+# Inicializar al importar.
+# Va dentro de un try para que IMPORTAR rag nunca tumbe la app: si algo falla
+# al arrancar (cuota de Google, un CSV que no carga, etc.), la app se levanta
+# igual y el problema se ve al preguntar, no como una pantalla en negro.
+try:
+    inicializar()
+except Exception as e:
+    print(f"⚠️ Error durante la inicialización del RAG: {e}")
+    print("   La app arrancará igualmente; algunas funciones pueden no estar disponibles.")
