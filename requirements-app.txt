@@ -1,0 +1,9 @@
+gradio==6.16.0
+pandas==2.3.3
+numpy==2.4.0
+torch==2.9.1
+scikit-learn==1.8.0
+joblib==1.5.3
+google-genai==1.73.1
+python-dotenv==1.2.2
+anthropic
