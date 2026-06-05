@@ -1,0 +1,130 @@
+LAS CRIPTOMONEDAS MÁS IMPORTANTES DE LA HISTORIA
+Análisis de los proyectos que han marcado el sector, su tecnología y sus episodios clave
+Documento de referencia para el corpus del sistema RAG
+Fecha de elaboración: 4 de junio de 2026
+
+NOTA SOBRE EL PROPÓSITO Y LA VIGENCIA
+Este documento recorre las criptomonedas más relevantes desde el nacimiento de Bitcoin hasta 2026: las primeras alternativas (Litecoin, Namecoin), las grandes plataformas (Ethereum, Solana, Cardano), las monedas ligadas a empresas y casos de uso concretos (XRP, BNB), las monedas estables (Tether, USDC), las memecoins (Dogecoin) y los grandes episodios que han definido al sector, en especial el colapso de Terra/Luna. Está pensado como material de contexto fijo para que el modelo pueda responder con criterio a preguntas del tipo "¿qué ofrece Solana frente a Ethereum?", "¿qué pasó con XRP y la SEC?" o "¿por qué se hundió Terra/Luna?". Complementa a los documentos específicos sobre Bitcoin y Ethereum. Las cifras de mercado son volátiles y deben tratarse como referencias aproximadas; los hechos históricos, técnicos y judiciales son estables.
+
+
+PRIMERA PARTE: LA FAMILIA DE LAS CRIPTOMONEDAS
+
+Después de Bitcoin (2009) surgió todo un universo de criptomonedas alternativas, conocidas genéricamente como "altcoins" (de "alternative coins"). En 2026 existen miles de criptomonedas, aunque solo unas pocas decenas tienen relevancia real por capitalización, adopción o tecnología. Conviene entender desde el principio que no todas las criptomonedas hacen lo mismo ni compiten entre sí: hay categorías muy distintas, y mezclarlas lleva a conclusiones erróneas. Las grandes familias son, a grandes rasgos:
+
+- Monedas pensadas como dinero o reserva de valor (Bitcoin, Litecoin).
+- Plataformas de contratos inteligentes y aplicaciones (Ethereum, Solana, Cardano, Avalanche, Polkadot).
+- Monedas ligadas a un caso de uso o una empresa concretos (XRP para pagos, BNB para el ecosistema de Binance).
+- Monedas estables o "stablecoins", ancladas a una moneda tradicional como el dólar (Tether, USDC, y el caso fallido de Terra UST).
+- Memecoins, nacidas como broma o fenómeno cultural (Dogecoin, Shiba Inu).
+- Tokens de infraestructura especializada (Chainlink para oráculos, Polygon para escalado, etc.).
+
+A lo largo de la historia, muchos proyectos prometieron "sustituir a Bitcoin" o "matar a Ethereum"; la mayoría desaparecieron. Los que han perdurado lo hicieron por aportar algo genuinamente distinto o por construir un ecosistema y una comunidad sólidos.
+
+
+SEGUNDA PARTE: LAS PRIMERAS ALTCOINS (2011) — NAMECOIN Y LITECOIN
+
+Namecoin (2011). Está considerada la primera altcoin de la historia. Usaba el mismo algoritmo de minería que Bitcoin (SHA-256), pero con un propósito distinto: demostrar que la cadena de bloques servía para algo más que para dinero. Namecoin creó un sistema de nombres de dominio descentralizado (los dominios ".bit"), anticipando usos de la blockchain en identidad y registro de datos. Hoy es casi irrelevante en términos de mercado, pero su importancia histórica es enorme: fue la prueba de que el concepto de Bitcoin podía generalizarse a otros casos de uso.
+
+Litecoin (2011): "la plata frente al oro de Bitcoin". Es la altcoin temprana más famosa y una de las pocas de aquella época que sigue activa y entre las criptomonedas relevantes. La creó Charlie Lee, ingeniero formado en el MIT y exempleado de Google, que publicó su código abierto en octubre de 2011 y lanzó la red el 13 de octubre de ese año. Lee no pretendía sustituir a Bitcoin, sino complementarlo: si Bitcoin era el "oro digital", Litecoin aspiraba a ser la "plata", una moneda más ágil para el uso cotidiano (pagar un café, dividir una cuenta). Sus diferencias técnicas con Bitcoin son las que el usuario suele recordar:
+
+- Bloques cada 2,5 minutos en lugar de cada 10, lo que hace las confirmaciones unas cuatro veces más rápidas.
+- Un algoritmo de minería distinto, Scrypt en lugar del SHA-256 de Bitcoin. En su momento, Scrypt hacía la minería más accesible (podía hacerse con CPU en vez de hardware especializado), aunque con el tiempo también aparecieron equipos dedicados.
+- Un tope de oferta de 84 millones de litecoins, exactamente cuatro veces el de Bitcoin (21 millones), manteniendo el mismo mecanismo de halving.
+
+Otro rasgo destacado de Litecoin fue su lanzamiento "justo" (fair launch): Lee minó solo unos 150 litecoins antes de abrirlo al público, sin reservarse una cantidad enorme para sí mismo, algo que en aquella época era un problema frecuente en otras altcoins (que se "preminaban" millones de monedas para sus fundadores). Esa transparencia le dio credibilidad. Con los años, Litecoin sirvió a menudo como "campo de pruebas" de mejoras técnicas que luego se adoptaron en Bitcoin, como SegWit (2017) y la Lightning Network. Hoy mantiene una posición discreta pero estable como una de las criptomonedas veteranas y de confianza.
+
+
+TERCERA PARTE: ETHEREUM Y LA ERA DE LOS CONTRATOS INTELIGENTES (2015)
+
+Ethereum, lanzado en 2015 por Vitalik Buterin y otros cofundadores, fue el salto cualitativo que abrió una nueva era. (Su historia completa se trata en un documento aparte de este corpus.) Aquí basta con situarlo: mientras las altcoins anteriores eran variaciones de Bitcoin como dinero, Ethereum introdujo los contratos inteligentes y convirtió la blockchain en una plataforma de propósito general sobre la que construir aplicaciones (DeFi, NFT, DAO). A partir de Ethereum, la mayoría de los grandes proyectos posteriores —Solana, Cardano, Avalanche— ya no compiten por ser "mejor dinero", sino por ser "mejor plataforma de aplicaciones". Ethereum es la segunda criptomoneda por capitalización y la plataforma de contratos inteligentes dominante.
+
+
+CUARTA PARTE: XRP (RIPPLE) — PAGOS INTERNACIONALES Y LA GRAN BATALLA JUDICIAL
+
+Qué es y qué ofrece. XRP es la criptomoneda del XRP Ledger, una red orientada específicamente a los pagos internacionales rápidos y baratos. Su empresa impulsora, Ripple, la promociona como una herramienta para que bancos e instituciones financieras muevan dinero entre países casi al instante y con comisiones mínimas, frente a los días y los costes del sistema tradicional (como SWIFT). A diferencia de Bitcoin, XRP no se mina: una gran cantidad fue creada de antemano, y Ripple conserva una parte significativa, algo que sus críticos señalan como un punto de centralización. XRP es, además, una superviviente histórica: es la única criptomoneda distinta de Bitcoin que se ha mantenido en el top 10 por capitalización todos los años desde 2014.
+
+La batalla judicial con la SEC (2020-2025). Es el caso legal más importante de la historia de las cripto y conviene conocerlo. En diciembre de 2020, el regulador bursátil estadounidense (la SEC) demandó a Ripple, acusándola de haber vendido XRP como un "valor" (security, como una acción) no registrado, recaudando unos 1.300 millones de dólares de forma supuestamente ilegal. La cuestión de fondo —si una criptomoneda es o no un "valor" a efectos legales— era trascendental para todo el sector. Los hitos del caso fueron:
+
+- Diciembre de 2020: la SEC demanda a Ripple.
+- Julio de 2023: la jueza Analisa Torres dicta un fallo mixto y muy influyente. Determina que las ventas de XRP al público general en mercados (ventas "programáticas" o minoristas) NO constituyen valores, pero que ciertas ventas a inversores institucionales SÍ lo fueron. Esta distinción entre venta minorista y venta institucional se convirtió en la guía judicial más clara que había tenido el sector.
+- Agosto de 2024: el tribunal impone a Ripple una multa de 125 millones de dólares, muy por debajo de los cerca de 2.000 millones que había pedido la SEC.
+- 2025: tras meses de apelaciones, se alcanza un acuerdo final que reduce la sanción a unos 50 millones de dólares y permite a Ripple recuperar parte de lo reservado. En agosto de 2025, ambas partes retiran sus apelaciones y el caso se cierra formalmente, tras casi cinco años, aportando por fin claridad regulatoria.
+
+Tras la resolución, el precio de XRP subió con fuerza (llegó a niveles no vistos desde 2018) y, entre finales de 2025 y principios de 2026, se lanzaron varios ETF de XRP al contado en Estados Unidos. El caso Ripple sentó un precedente que otros acusados (Coinbase, Binance) invocaron en sus propios litigios.
+
+
+QUINTA PARTE: BNB — LA MONEDA DEL MAYOR EXCHANGE DEL MUNDO
+
+BNB (originalmente Binance Coin) es la criptomoneda ligada a Binance, el mayor mercado de intercambio (exchange) de criptomonedas del mundo. Nació en 2017 mediante una oferta inicial de moneda (ICO), primero como un token sobre Ethereum y después con su propia cadena, la BNB Chain (antes Binance Smart Chain), una plataforma de contratos inteligentes compatible con Ethereum pero más rápida y barata, a cambio de mayor centralización. BNB tiene utilidad concreta dentro del ecosistema de Binance: da descuentos en las comisiones de la plataforma, paga las operaciones en la BNB Chain y se usa en numerosas aplicaciones. Binance también realiza "quemas" periódicas de BNB para reducir su oferta. Desde 2021, BNB se ha mantenido de forma constante entre las cinco mayores criptomonedas, reflejo del dominio de Binance como exchange. Conviene notar que el ecosistema Binance ha tenido sus propios problemas regulatorios: en 2023, su fundador, Changpeng Zhao (CZ), se declaró culpable de cargos relacionados con incumplimientos de normas antiblanqueo en Estados Unidos, y la empresa pagó una cuantiosa multa, aunque la plataforma siguió operando.
+
+
+SEXTA PARTE: CARDANO — EL ENFOQUE ACADÉMICO
+
+Cardano, cuya moneda es ADA, fue fundada por Charles Hoskinson, uno de los cofundadores originales de Ethereum que se separó del proyecto por desacuerdos sobre su dirección. Lanzada en 2017, Cardano se distingue por su filosofía: un desarrollo basado en investigación académica revisada por pares, con un fuerte énfasis en la seguridad, la formalidad matemática y la sostenibilidad. Usa un mecanismo de prueba de participación propio llamado Ouroboros. Sus nombres rinden homenaje a figuras históricas: "Cardano" por el matemático Gerolamo Cardano, y "ADA" por Ada Lovelace, considerada la primera programadora. La gran fortaleza de Cardano —su rigor— es también su debilidad más citada: ese enfoque cauteloso ha hecho que su desarrollo sea más lento y que su ecosistema de aplicaciones haya tardado en despegar y sea menos profundo que el de Ethereum o Solana. Es un proyecto respetado por su seriedad técnica, pero que ha luchado por traducir esa solidez en adopción real.
+
+
+SÉPTIMA PARTE: SOLANA — VELOCIDAD Y BAJO COSTE (Y QUÉ OFRECE FRENTE A ETHEREUM)
+
+Solana, cuya moneda es SOL, se lanzó en 2020 de la mano de Anatoly Yakovenko. Es, desde hace años, el competidor más serio de Ethereum y se la suele encuadrar (junto a Cardano o Avalanche) en la categoría de los "Ethereum killers". Su propuesta de valor es clara y conviene tenerla muy presente para responder a la pregunta de qué ofrece frente a Ethereum:
+
+- Velocidad y coste. Solana está diseñada para procesar miles de transacciones por segundo con comisiones de céntimos o menos, frente a las decenas de transacciones por segundo y las comisiones más altas de la capa base de Ethereum. Lo consigue con un diseño técnico distinto, que combina la prueba de participación con un mecanismo propio llamado "Prueba de Historia" (Proof of History), que ordena las transacciones de forma muy eficiente.
+- Filosofía opuesta. Aquí está la diferencia de fondo. Ethereum prioriza la descentralización y la seguridad por encima de la velocidad, y delega el escalado en capas 2 (rollups). Solana prioriza el rendimiento en una sola capa (monolítica), aceptando a cambio una mayor concentración de validadores y unos requisitos de hardware más exigentes, lo que sus críticos señalan como un riesgo para su descentralización. Una metáfora útil: Ethereum es como una capital financiera consolidada, llena de instituciones e infraestructura; Solana es como un polo tecnológico veloz, atractivo para la innovación rápida.
+- Historial de caídas. En sus primeros años, Solana sufrió varias caídas de la red (paradas temporales), lo que dañó su reputación de fiabilidad. Ha trabajado mucho en estabilizarla, y mejoras como el cliente Firedancer buscan reforzar su robustez y velocidad.
+- Dónde brilla. Solana se ha convertido en el terreno preferido para aplicaciones de alta frecuencia, intercambios descentralizados (DEX), pagos, NFT y, muy especialmente, el lanzamiento masivo de memecoins y tokens, gracias a sus bajos costes.
+
+El veredicto que se repite en los análisis es que no se trata necesariamente de "uno u otro". En 2026, Ethereum conserva una capitalización muy superior, el dominio en DeFi y tokenización, y la mayor confianza institucional, mientras que Solana destaca en métricas de actividad de usuarios y volumen de operaciones. El futuro probablemente sea multicadena, con ambas especializándose en nichos distintos.
+
+
+OCTAVA PARTE: LAS MONEDAS ESTABLES (STABLECOINS)
+
+Las stablecoins son una categoría aparte y absolutamente central en el funcionamiento del sector. Su objetivo no es revalorizarse, sino mantener un valor estable, normalmente anclado uno a uno con el dólar estadounidense. Sirven como "refugio" dentro del ecosistema cripto (para salir de la volatilidad sin pasar a dinero tradicional), como unidad de cuenta y como el principal vehículo de liquidez: una gran parte de todas las transacciones cripto se hacen con stablecoins. Hay dos modelos fundamentales, y la diferencia entre ellos es crucial:
+
+- Respaldadas por reservas reales (las que funcionan). Por cada unidad emitida, el emisor guarda un dólar (o equivalentes en efectivo y bonos) en reserva. Las dos grandes son Tether (USDT), la mayor con diferencia (su capitalización ronda los 180.000 millones de dólares y domina más de la mitad del mercado de stablecoins), y USD Coin (USDC), emitida por Circle, que se distingue por un enfoque más regulado y transparente. El mercado total de stablecoins supera los 300.000 millones de dólares. En 2026, las stablecoins ocupan ya en torno al 11-12 % de la capitalización de las diez mayores criptomonedas, una categoría que hace pocos años apenas existía en ese ranking. Existen también stablecoins descentralizadas y respaldadas por otras criptomonedas, como DAI (de MakerDAO), y nuevas variantes como USDe (de Ethena).
+
+- Algorítmicas (el modelo que falló estrepitosamente). En lugar de reservas reales, intentan mantener el anclaje mediante un mecanismo automático de creación y destrucción de otra moneda asociada. Este modelo es mucho más frágil, como demostró el desastre de Terra/Luna, que se explica a continuación.
+
+Una nota relevante: una parte enorme de la liquidez en stablecoins (sobre todo de USDT) se mueve a través de la red TRON (TRX), de Justin Sun, que se ha especializado en ser una vía barata para liquidar transacciones con Tether.
+
+
+NOVENA PARTE: TERRA / LUNA — EL MAYOR COLAPSO DEL SECTOR (MAYO DE 2022)
+
+El de Terra/Luna es el episodio más aleccionador de la historia reciente de las cripto, y es imprescindible entenderlo bien. Terraform Labs, fundada en 2018 por Do Kwon y Daniel Shin, creó un ecosistema con dos piezas entrelazadas: UST (TerraUSD), una stablecoin que debía valer siempre un dólar, y LUNA, su moneda "hermana".
+
+Cómo funcionaba (y por qué era frágil). UST no estaba respaldada por reservas reales en dólares, sino que era una stablecoin algorítmica que mantenía su anclaje mediante un mecanismo de creación y destrucción con LUNA: si UST valía más de un dólar, se "quemaba" LUNA para crear UST nueva; si valía menos, se quemaba UST para crear LUNA. En teoría, el arbitraje de los traders mantendría el precio en un dólar. El sistema funcionaba bien en mercados alcistas, pero dependía por completo de la confianza. Para atraer capital, el ecosistema ofrecía a través del protocolo Anchor rendimientos de hasta el 20 % anual por depositar UST, una rentabilidad insostenible que infló artificialmente la demanda. En su pico, el ecosistema llegó a valer más de 40.000 millones de dólares, y UST fue la tercera o cuarta mayor stablecoin del mundo.
+
+El colapso (la "espiral de la muerte"). En mayo de 2022, una serie de retiradas masivas de UST rompió su anclaje: UST empezó a valer menos de un dólar. El mecanismo automático reaccionó creando (acuñando) enormes cantidades de LUNA para intentar restaurar el anclaje. Pero, al hacerlo, hiperinfló la oferta de LUNA: su precio se desplomó de unos 80 dólares a una fracción de céntimo en cuestión de días, y cuanta más LUNA se creaba, más caía, lo que a su vez hundía aún más a UST. Es la llamada "espiral de la muerte": el propio mecanismo de estabilización, en lugar de frenar la caída, la aceleró. La Luna Foundation Guard llegó a gastar sus enormes reservas de bitcoin (de más de 80.000 BTC a apenas unos cientos) en un intento fallido de defender el anclaje. En unos siete días, entre el 9 y el 15 de mayo de 2022, se evaporó más del 90 % de un ecosistema valorado en decenas de miles de millones de dólares (las estimaciones de pérdidas van de 40.000 a 60.000 millones). Solo en Corea del Sur, se calcula que unas 280.000 personas sufrieron pérdidas.
+
+Las consecuencias. El colapso de Terra/Luna desató un efecto dominó (contagio) que arrastró a fondos y plataformas de préstamo a lo largo de 2022 y contribuyó al "invierno cripto" de ese año. Do Kwon, que durante meses había despreciado con arrogancia a los críticos que advertían del riesgo, fue objeto de una persecución internacional, detenido en 2023 y, finalmente, se declaró culpable de fraude ante un tribunal federal estadounidense en agosto de 2025.
+
+La lección. Terra/Luna es el caso de estudio por excelencia de cómo puede fallar una stablecoin algorítmica sin respaldo real: es, como se ha descrito, "una máquina de confianza que funciona en reversa". Cuando la confianza se rompe, el mecanismo amplifica el desastre en lugar de contenerlo. De ahí la enorme importancia de distinguir entre stablecoins respaldadas por reservas reales y las algorítmicas, y de desconfiar de rendimientos demasiado altos para ser sostenibles.
+
+
+DÉCIMA PARTE: DOGECOIN Y LAS MEMECOINS
+
+Dogecoin (DOGE) nació en 2013 como una broma. Sus creadores, Billy Markus y Jackson Palmer, lo lanzaron parodiando la fiebre de las criptomonedas, usando como imagen el famoso meme del perro de raza Shiba Inu. A diferencia de Bitcoin, no tiene un tope de oferta, por lo que es inflacionario por diseño. Pese a sus orígenes humorísticos, Dogecoin desarrolló una comunidad enorme y leal, y se disparó durante la "supercicla de las memecoins" de 2021, impulsado en buena parte por los mensajes de figuras como Elon Musk. Su valor descansa casi por completo en la liquidez, la marca y el sentimiento social, no en una utilidad técnica. Le siguieron otras memecoins, como Shiba Inu (SHIB), y un sinfín de imitaciones, muchas de ellas efímeras o directamente fraudulentas.
+
+Las memecoins son el ejemplo más puro de especulación emocional pura en el sector: pueden multiplicar su valor por euforia colectiva y desplomarse con la misma rapidez. Representan el lado más volátil y arriesgado del mercado, y conviene tratarlas con extrema cautela. En 2026, el fenómeno seguía vivo, aunque con rotación constante de proyectos.
+
+
+UNDÉCIMA PARTE: OTROS PROYECTOS NOTABLES
+
+Junto a los anteriores, conviene conocer algunos proyectos que cumplen funciones de infraestructura o que han ocupado posiciones relevantes:
+
+- TRON (TRX), de Justin Sun: especializado en liquidar transacciones de stablecoins (sobre todo USDT) de forma barata; mueve un volumen enorme de dinero estable.
+- Avalanche (AVAX): plataforma de contratos inteligentes que apuesta por un consenso propio y por "subredes" para escalar.
+- Polkadot (DOT): cofundado por Gavin Wood (el mismo cofundador y director técnico de Ethereum), centrado en la interoperabilidad entre distintas cadenas de bloques.
+- Chainlink (LINK): red de "oráculos" que conecta los contratos inteligentes con datos del mundo real (precios, eventos), una pieza de infraestructura crítica para DeFi.
+- Polygon (POL, antes MATIC): solución de escalado para Ethereum, que abarata y acelera sus transacciones.
+- Hyperliquid (HYPE): proyecto de finanzas descentralizadas que en 2026 irrumpió en el top 10 por capitalización, desplazando a Dogecoin, señal de la rotación constante en la cima del sector.
+
+
+DUODÉCIMA PARTE: EL PANORAMA ACTUAL (2026)
+
+A fecha de elaboración de este documento (junio de 2026), la capitalización total del mercado cripto supera los 2,5 billones de dólares (en el sentido europeo, es decir, millones de millones). La cima del ranking la siguen ocupando Bitcoin y Ethereum, seguidos de un grupo cambiante en el que destacan de forma recurrente las stablecoins (Tether y USDC), XRP, BNB y Solana, con Cardano, Dogecoin y otros proyectos rotando en las posiciones siguientes.
+
+Tres cambios estructurales definen el momento actual. Primero, la consolidación de las stablecoins como categoría central: ya representan más del 11 % de la capitalización del top 10, algo impensable hace unos años, y son el principal vehículo de liquidez del sector. Segundo, la entrada institucional a través de los ETF al contado, que comenzó con Bitcoin (2024) y Ethereum y se ha extendido a XRP y otros activos. Tercero, una mayor claridad regulatoria en Estados Unidos tras la resolución del caso Ripple y un clima político más favorable, lo que ha reducido parte de la incertidumbre legal que pesaba sobre el sector. A la vez, el mercado mantiene su carácter cíclico y volátil: tras los máximos de finales de 2025, 2026 ha traído una fase de corrección.
+
+
+SÍNTESIS PARA EL ANÁLISIS
+
+La historia de las criptomonedas, más allá de Bitcoin y Ethereum, es la de un ecosistema en constante experimentación, con grandes éxitos y fracasos estrepitosos. Litecoin demostró pronto que se podían mejorar aspectos concretos de Bitcoin (velocidad, accesibilidad) sin pretender sustituirlo. XRP encarnó la apuesta por un caso de uso específico (los pagos internacionales) y protagonizó la batalla judicial que más ha hecho por clarificar el marco legal del sector. BNB mostró el poder de las monedas ligadas a grandes plataformas. Cardano y Solana representan dos filosofías opuestas de cómo construir una plataforma de aplicaciones: el rigor académico lento frente a la velocidad y el rendimiento. Las stablecoins se han vuelto la infraestructura monetaria del sector, con la advertencia permanente que dejó el colapso de Terra/Luna sobre los modelos algorítmicos insostenibles. Y las memecoins recuerdan que una parte del mercado se mueve por pura emoción colectiva. Para cualquier análisis, las lecciones recurrentes son tres: primero, distinguir siempre qué tipo de activo se está mirando, porque no todos compiten en lo mismo; segundo, que la mayoría de los grandes desastres (Terra/Luna, Mt. Gox, FTX) nacieron de diseños insostenibles o de intermediarios centralizados, no de los protocolos base bien construidos; y tercero, que la promesa de rendimientos demasiado altos o de revalorizaciones meteóricas es, casi siempre, la señal más fiable de un riesgo desproporcionado. Disciplina, escepticismo y comprensión de los fundamentos valen aquí más que en ningún otro mercado.

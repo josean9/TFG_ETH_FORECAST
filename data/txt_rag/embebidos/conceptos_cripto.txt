@@ -1,0 +1,195 @@
+CONCEPTOS Y TERMINOLOGÍA DE LAS CRIPTOMONEDAS
+Guía de referencia para entender y responder sobre cualquier concepto del sector
+Documento de referencia para el corpus del sistema RAG
+Fecha de elaboración: 4 de junio de 2026
+
+NOTA SOBRE EL PROPÓSITO
+Este documento explica los conceptos, mecanismos y la terminología del mundo de las criptomonedas, organizados por bloques temáticos. Su función es que el modelo pueda responder con criterio a preguntas sobre cualquier término o idea del sector (qué es el staking, qué es el gas, qué es un rollup, qué significa TVL, qué es una ballena, qué es un rug pull, etc.), aunque la pregunta no se refiera a una criptomoneda concreta. Complementa a los documentos sobre Bitcoin, Ethereum y las criptomonedas históricas. Las explicaciones de conceptos son estables; la sección final sobre tendencias emergentes refleja el estado del sector en 2026 y es la más sujeta a evolución.
+
+
+BLOQUE 1: CONCEPTOS FUNDAMENTALES DE LA CADENA DE BLOQUES
+
+Cadena de bloques (blockchain). Es la tecnología base de las criptomonedas: un registro contable (un "libro mayor" o ledger) compartido, en el que las transacciones se agrupan en bloques que se encadenan unos a otros en orden cronológico. Cada bloque contiene una "huella" criptográfica (un hash) del anterior, de modo que alterar un bloque pasado exigiría rehacer todos los posteriores, lo que lo hace prácticamente inmutable.
+
+Descentralización. Es la propiedad clave del sector. En lugar de que una sola entidad (un banco, una empresa) controle el registro, este se mantiene y se verifica de forma distribuida entre muchos ordenadores (nodos) repartidos por el mundo. Nadie tiene el control único ni puede cambiar las reglas a su antojo. Cuanto más descentralizada es una red, más resistente es a la censura y a la manipulación, aunque suele ser más lenta.
+
+Nodo. Cada uno de los ordenadores que forman la red, mantienen una copia del registro y validan las transacciones según las reglas del protocolo. Cuantos más nodos independientes haya, más robusta y descentralizada es la red.
+
+Hash. Una función criptográfica que convierte cualquier dato en una "huella" única de longitud fija. Es imposible deducir el dato original a partir del hash, y cualquier cambio mínimo en el dato produce un hash completamente distinto. Es la pieza que sella la integridad de la cadena.
+
+Inmutabilidad. Una vez que una transacción se confirma y queda enterrada bajo suficientes bloques, es prácticamente imposible de revertir o alterar. Esto da seguridad, pero también significa que los errores (enviar fondos a la dirección equivocada, por ejemplo) suelen ser irreversibles.
+
+On-chain y off-chain. "On-chain" se refiere a lo que ocurre y queda registrado en la propia cadena de bloques (una transferencia, la ejecución de un contrato). "Off-chain" se refiere a lo que ocurre fuera de ella (acuerdos privados, datos externos, operaciones en segundas capas antes de liquidarse).
+
+Mempool. La "sala de espera" de las transacciones: el conjunto de operaciones que han sido enviadas pero todavía no se han incluido en un bloque. En momentos de congestión, el mempool se llena y las comisiones suben.
+
+
+BLOQUE 2: MECANISMOS DE CONSENSO (CÓMO SE PONEN DE ACUERDO LAS REDES)
+
+El "consenso" es el procedimiento por el que una red descentralizada se pone de acuerdo, sin una autoridad central, sobre qué transacciones son válidas y en qué orden. Hay dos grandes modelos.
+
+Prueba de trabajo (Proof of Work, PoW). Es el modelo de Bitcoin. Unos participantes llamados mineros compiten por resolver un problema criptográfico que requiere mucho cómputo y mucha energía; el primero que lo resuelve añade el siguiente bloque y recibe una recompensa. La seguridad proviene del coste: atacar la red exigiría un poder de cómputo descomunal. Términos asociados:
+- Minería: el proceso de competir por añadir bloques y obtener recompensas.
+- Hash rate (tasa de hash): la potencia de cómputo total dedicada a minar una red; cuanto mayor, más segura es.
+- Su crítica principal es el alto consumo energético.
+
+Prueba de participación (Proof of Stake, PoS). Es el modelo al que migró Ethereum en 2022 y el que usan la mayoría de las plataformas modernas. En lugar de gastar energía, los participantes llamados validadores depositan (ponen "en staking") una cantidad de la criptomoneda como garantía; la red los elige para validar bloques y los recompensa. Si actúan de forma deshonesta, pueden perder parte de su depósito (un castigo llamado "slashing"). Términos asociados:
+- Validador: el equivalente al minero en PoS; valida transacciones y asegura la red a cambio de recompensas.
+- Slashing (penalización): la confiscación de parte del depósito de un validador que se comporta mal o falla.
+- Su ventaja principal es el bajísimo consumo energético (en torno a un 99,95 % menos que PoW).
+
+
+BLOQUE 3: WALLETS Y SEGURIDAD (CÓMO SE GUARDAN Y MUEVEN LAS CRIPTO)
+
+Wallet (cartera o monedero). El software o dispositivo con el que se gestionan las criptomonedas. Es importante entender que la wallet no "guarda" las monedas (estas viven en la cadena de bloques); lo que guarda son las claves que dan acceso y control sobre ellas.
+
+Clave pública y clave privada. La clave pública (o la dirección que se deriva de ella) es como un número de cuenta: se puede compartir para recibir fondos. La clave privada es como la contraseña y la firma: quien la posee controla los fondos. Nunca debe compartirse.
+
+Frase semilla (seed phrase) o frase de recuperación. Una secuencia de 12 o 24 palabras que es la copia de seguridad maestra de una wallet: permite recuperar el acceso a los fondos. Quien la conozca tiene control total sobre los fondos, por lo que debe guardarse en secreto y nunca introducirse en webs sospechosas.
+
+Autocustodia. El principio de "tus llaves, tus monedas" (not your keys, not your coins): ser uno mismo el único custodio de sus claves privadas, sin depender de un tercero. Da soberanía total, pero también responsabilidad total: si se pierden las claves, los fondos son irrecuperables.
+
+Wallet caliente (hot wallet) y wallet fría (cold wallet). Una wallet "caliente" está conectada a internet (una app, un exchange): cómoda pero más expuesta a ataques. Una wallet "fría" está desconectada (un dispositivo físico de hardware, o incluso papel): mucho más segura para guardar grandes cantidades a largo plazo.
+
+Exchange (mercado de intercambio). Una plataforma para comprar, vender e intercambiar criptomonedas (Binance, Coinbase, Kraken). Pueden ser centralizados (CEX, gestionados por una empresa que custodia los fondos) o descentralizados (DEX, ver más abajo). Guardar fondos en un exchange equivale a confiar en un tercero, con el riesgo que eso implica (como demostraron las quiebras de Mt. Gox o FTX).
+
+
+BLOQUE 4: GAS Y COMISIONES
+
+Gas. Es el término (popularizado por Ethereum) para la unidad que mide el coste computacional de una operación en la red. Cada transacción o ejecución de un contrato consume una cantidad de gas, que se paga en la criptomoneda nativa de la red (ether en Ethereum). Es, en esencia, el "combustible" que paga el trabajo de la red.
+
+Comisiones (fees). El coste de realizar una transacción. En redes congestionadas, las comisiones suben porque los usuarios compiten por que sus transacciones se incluyan antes. Esta es una de las grandes diferencias entre redes: las comisiones de la capa base de Ethereum pueden ser altas, mientras que las de Solana o las capas 2 son de céntimos.
+
+Quema de comisiones (fee burn). En Ethereum, desde 2021, una parte de cada comisión (la "tarifa base") se destruye en lugar de pagarse a nadie, lo que reduce la oferta de ether y puede hacerlo deflacionario en periodos de alta actividad.
+
+
+BLOQUE 5: DEFI (FINANZAS DESCENTRALIZADAS) Y SUS PIEZAS
+
+DeFi (Decentralized Finance). El conjunto de servicios financieros (préstamos, intercambios, ahorro, derivados) que funcionan sobre contratos inteligentes, sin bancos ni intermediarios. Las operaciones se ejecutan de forma automática según el código. Su contraparte es CeFi (Centralized Finance): servicios financieros cripto gestionados por una empresa (un exchange centralizado, por ejemplo).
+
+Contrato inteligente (smart contract). Un programa que vive en la cadena de bloques y se ejecuta automáticamente cuando se cumplen sus condiciones. Es la pieza que hace posible todo DeFi. Su riesgo principal es que un error en el código puede ser explotado (como en el hackeo de The DAO).
+
+DEX (exchange descentralizado). Un mercado de intercambio que funciona mediante contratos inteligentes, sin una empresa que custodie los fondos; los usuarios operan directamente desde sus propias wallets (Uniswap es el ejemplo clásico).
+
+AMM (creador de mercado automático) y pools de liquidez. La mayoría de los DEX no usan un libro de órdenes tradicional, sino un AMM: un contrato que fija los precios mediante una fórmula matemática a partir de las cantidades depositadas en un "pool de liquidez". Los usuarios que aportan sus monedas a esos pools (proveedores de liquidez) ganan una parte de las comisiones.
+
+Staking. Bloquear (depositar) criptomonedas para ayudar a asegurar una red de prueba de participación y, a cambio, recibir recompensas, de forma parecida a un interés. En Ethereum, por ejemplo, alrededor del 30 % del ether está en staking, con rendimientos en torno al 3 % anual.
+
+Liquid staking (staking líquido). Una variante en la que, al hacer staking, se recibe a cambio un token que representa el depósito y que sí se puede usar libremente en DeFi. Así se obtiene el rendimiento del staking sin renunciar a la liquidez. (Lido es el ejemplo más conocido.)
+
+Restaking (reestaking). Una evolución más reciente: reutilizar el ether ya en staking para asegurar simultáneamente otros servicios o redes, obteniendo rendimientos adicionales a cambio de asumir más riesgo.
+
+Préstamos (lending y borrowing). Protocolos que permiten prestar criptomonedas para ganar intereses, o pedirlas prestadas dejando otras como garantía (colateral), todo de forma automática y sin intermediarios (Aave, Compound).
+
+Yield farming (cultivo de rendimiento). La práctica de mover fondos entre distintos protocolos DeFi buscando maximizar los rendimientos (intereses, recompensas en tokens). Puede ser muy rentable, pero también muy arriesgado; los rendimientos extremadamente altos suelen ser insostenibles o una señal de peligro.
+
+TVL (Total Value Locked, valor total bloqueado). La métrica más usada para medir el tamaño de un protocolo o de todo DeFi: la cantidad total de dinero depositado en sus contratos inteligentes. Un TVL alto indica confianza y actividad. Ethereum domina el DeFi por TVL con mucha diferencia.
+
+Oráculo (oracle). Un servicio que conecta los contratos inteligentes con datos del mundo real (precios de activos, resultados de eventos), porque la cadena de bloques por sí sola no puede acceder a información externa. Chainlink es la red de oráculos más conocida y una pieza de infraestructura crítica para DeFi.
+
+
+BLOQUE 6: TOKENS Y ECONOMÍA
+
+Coin frente a token. Una "coin" (moneda) es la criptomoneda nativa de su propia cadena de bloques (bitcoin, ether, SOL). Un "token" se construye sobre una cadena ya existente (por ejemplo, miles de tokens viven sobre Ethereum siguiendo el estándar ERC-20). La distinción es sutil y a menudo se usan indistintamente, pero técnicamente importa.
+
+Tokenomics (economía del token). El conjunto de reglas económicas de una criptomoneda: cuántas unidades existen, cómo se emiten, si se queman, cómo se distribuyen. Una buena "tokenomics" es clave para evaluar un proyecto.
+
+Oferta máxima, oferta circulante y capitalización. La "oferta máxima" (max supply) es el total de unidades que llegarán a existir (21 millones en Bitcoin). La "oferta circulante" es la que ya está en el mercado. La "capitalización de mercado" (market cap) es el precio por unidad multiplicado por la oferta circulante; es la métrica principal para comparar el tamaño de las criptomonedas. El "FDV" (valoración totalmente diluida) calcula la capitalización como si toda la oferta máxima ya estuviera en circulación.
+
+ICO, IDO y airdrop. Formas de lanzar o distribuir un token. Una ICO (oferta inicial de moneda) es una venta inicial al público para recaudar fondos (muy populares y a menudo fraudulentas en 2017). Una IDO es una variante sobre un exchange descentralizado. Un "airdrop" es un reparto gratuito de tokens, normalmente para premiar a usuarios o promocionar un proyecto.
+
+Quema (burn) y vesting. "Quemar" tokens es destruirlos para reducir la oferta y, en teoría, sostener el precio. El "vesting" es la liberación gradual y programada de tokens (por ejemplo, los del equipo fundador), para evitar que se vendan todos de golpe.
+
+NFT (token no fungible). Un token único e indivisible que representa la propiedad de algo concreto (una obra digital, un objeto de un juego, un certificado). "No fungible" significa que no es intercambiable por otro idéntico, a diferencia del dinero (un euro es igual a otro euro). Vivieron una enorme burbuja en 2021.
+
+
+BLOQUE 7: ESCALADO Y ARQUITECTURA
+
+Capa 1 (L1) y capa 2 (L2). La "capa 1" es la cadena de bloques base (Bitcoin, Ethereum, Solana). Una "capa 2" es una red construida encima de una capa 1 para procesar transacciones de forma más rápida y barata, heredando la seguridad de la capa base. La Lightning Network es una capa 2 de Bitcoin; Arbitrum, Optimism o Base son capas 2 de Ethereum.
+
+Rollups. El tipo de capa 2 dominante en Ethereum. Agrupan ("enrollan") muchas transacciones fuera de la cadena principal y luego publican un resumen comprimido en ella, repartiendo el coste. Hay dos variantes: los "optimistic rollups" (asumen que las transacciones son válidas salvo prueba en contra) y los "ZK-rollups" (usan pruebas criptográficas de conocimiento cero para demostrar la validez).
+
+Sidechains (cadenas laterales) y puentes (bridges). Una sidechain es una cadena independiente conectada a otra principal. Un "puente" es el mecanismo que permite mover activos entre cadenas distintas. Los puentes han sido históricamente uno de los puntos más vulnerables y atacados del sector.
+
+Arquitectura monolítica frente a modular. Una cadena "monolítica" (como Solana) hace todo en una sola capa, priorizando el rendimiento. Una arquitectura "modular" (la estrategia de Ethereum) separa funciones en capas distintas (la base para seguridad, las capas 2 para velocidad), priorizando la descentralización y la flexibilidad.
+
+Sharding. Una técnica de escalado que divide la red en fragmentos ("shards") que procesan transacciones en paralelo. Ethereum la ha ido implementando de forma parcial y evolucionada (a través de los "blobs" y el "danksharding").
+
+
+BLOQUE 8: ORGANIZACIÓN Y GOBERNANZA
+
+DAO (organización autónoma descentralizada). Una organización gobernada por reglas codificadas en contratos inteligentes y por las decisiones de sus miembros (normalmente mediante la votación con tokens de gobernanza), sin una jerarquía tradicional. The DAO, cuyo hackeo en 2016 dividió Ethereum, fue uno de los primeros y más famosos ejemplos.
+
+Token de gobernanza. Un token que otorga derecho a voto sobre las decisiones de un protocolo o una DAO. Cuantos más se posean, más peso tiene el voto.
+
+
+BLOQUE 9: MERCADO Y TRADING — JERGA Y MÉTRICAS
+
+HODL. Un término icónico (originado en una errata de "hold", aguantar) que significa mantener las criptomonedas a largo plazo sin venderlas pese a la volatilidad. Encarna la mentalidad de paciencia frente al ruido del corto plazo.
+
+FOMO y FUD. "FOMO" (Fear Of Missing Out, miedo a quedarse fuera) es la ansiedad que empuja a comprar por euforia cuando algo sube. "FUD" (Fear, Uncertainty, Doubt: miedo, incertidumbre y duda) es la difusión de información negativa que provoca ventas por pánico. Ambos son los grandes motores emocionales que conviene reconocer y resistir.
+
+Ballena (whale). Un participante que posee una cantidad enorme de una criptomoneda, suficiente para mover el mercado con sus operaciones. Seguir los movimientos de las ballenas (on-chain) es una práctica de análisis habitual.
+
+Mercado alcista (bull) y bajista (bear). Un "bull market" es un periodo sostenido de subidas y optimismo; un "bear market", uno de caídas y pesimismo (el "crypto winter" de 2022 fue un mercado bajista profundo).
+
+ATH (All-Time High, máximo histórico). El precio más alto que ha alcanzado un activo en su historia. Bitcoin marcó su ATH en torno a los 126.000 dólares en octubre de 2025.
+
+Dominancia de Bitcoin (BTC dominance). El porcentaje de la capitalización total del mercado cripto que representa Bitcoin. Cuando baja, suele indicar que el capital fluye hacia las altcoins (las llamadas "altseasons").
+
+Volatilidad, liquidez y slippage. La "volatilidad" es la magnitud de las oscilaciones de precio (muy alta en cripto). La "liquidez" es la facilidad para comprar o vender sin mover el precio. El "slippage" (deslizamiento) es la diferencia entre el precio esperado y el real de una operación, mayor cuando hay poca liquidez.
+
+DCA (Dollar-Cost Averaging, promedio de coste). La estrategia de invertir cantidades fijas de forma periódica (por ejemplo, cada mes) en lugar de todo de golpe, para promediar el precio de entrada y reducir el impacto de la volatilidad y de los errores de sincronización.
+
+Índice de miedo y codicia (Fear & Greed Index). Un indicador que mide el sentimiento emocional agregado del mercado, de "miedo extremo" a "codicia extrema". Bajo una óptica prudente, suele leerse como contraindicador: la codicia extrema invita a la cautela, y el miedo extremo puede señalar oportunidades. (Este punto se desarrolla en el documento sobre la mentalidad de inversión.)
+
+
+BLOQUE 10: RIESGOS, ESTAFAS Y SEGURIDAD
+
+El sector cripto está lleno de oportunidades, pero también de riesgos y fraudes. Conocer los más comunes es imprescindible.
+
+Rug pull ("tirón de alfombra"). Una estafa en la que los creadores de un proyecto atraen inversión y luego desaparecen con el dinero, dejando el token sin valor. Muy frecuente en proyectos nuevos y memecoins.
+
+Pump and dump (inflar y tirar). Una manipulación en la que un grupo infla artificialmente el precio de un activo con publicidad coordinada para venderlo en el pico, dejando a los compradores tardíos con pérdidas.
+
+Esquema Ponzi y exit scam. Un Ponzi paga a los inversores antiguos con el dinero de los nuevos, hasta que colapsa. Un "exit scam" es la huida de los responsables con los fondos. Los rendimientos garantizados y desproporcionados son la señal de alarma clásica.
+
+Phishing. El engaño para que la víctima revele sus claves o su frase semilla, normalmente mediante webs o mensajes falsos. La regla de oro: nunca compartir la frase semilla ni introducirla en ningún sitio.
+
+Ataque del 51 %. Un escenario en el que una entidad controla la mayoría del poder de la red (cómputo en PoW o participación en PoS) y podría manipular transacciones. Es muy costoso en redes grandes como Bitcoin o Ethereum, pero ha ocurrido en cadenas pequeñas.
+
+Reentrancia. El tipo de vulnerabilidad de contratos inteligentes que causó el hackeo de The DAO: una función de retirada que se puede invocar repetidamente antes de actualizar el saldo.
+
+MEV (valor extraíble por el productor de bloques). La ganancia que los validadores o constructores de bloques pueden obtener reordenando, incluyendo o excluyendo transacciones (por ejemplo, adelantándose a una operación grande). Es un problema sutil que Ethereum trabaja por mitigar.
+
+Pérdida impermanente (impermanent loss). El riesgo específico de los proveedores de liquidez en los AMM: cuando los precios de los activos del pool cambian mucho, el proveedor puede acabar con menos valor del que tendría si simplemente hubiera mantenido las monedas.
+
+Riesgo de los intermediarios y de custodia. Conviene recordar la lección recurrente del sector: la mayoría de los grandes desastres (Mt. Gox, FTX, Celsius) no fueron fallos de los protocolos, sino de empresas centralizadas que custodiaban fondos ajenos. La autocustodia evita ese riesgo a cambio de mayor responsabilidad.
+
+KYC, AML y regulación. "KYC" (Conoce a Tu Cliente) y "AML" (antiblanqueo) son las normas que obligan a los exchanges a identificar a sus usuarios. El marco regulatorio varía mucho por país y sigue evolucionando, y los cambios pueden afectar fuertemente al mercado.
+
+
+BLOQUE 11: TENDENCIAS EMERGENTES (ESTADO EN 2026)
+
+Esta sección refleja las narrativas y tendencias que dominaban el sector en 2026 y es la más sujeta a evolución.
+
+Tokenización de activos del mundo real (RWA). Probablemente la tendencia más importante: llevar a la cadena de bloques activos tradicionales (bonos del Tesoro, fondos, inmuebles, materias primas, crédito privado) para negociarlos con mayor rapidez, eficiencia y transparencia. Es la vía por la que las instituciones financieras están entrando de verdad en el sector, convirtiendo la blockchain en "fontanería" del sistema financiero más que en un casino especulativo. Ethereum domina este mercado.
+
+Stablecoins como raíles de pago. Más allá de su uso como refugio, las stablecoins se están consolidando como infraestructura para pagos, remesas y transferencias internacionales, moviendo volúmenes anuales que rivalizan o superan a las grandes redes de tarjetas.
+
+DePIN (redes de infraestructura física descentralizada). Proyectos que usan incentivos en tokens para que la gente aporte recursos físicos del mundo real (almacenamiento, potencia de cálculo/GPU, conectividad inalámbrica, datos de sensores). Ejemplos como Render, Akash o Helium. Es un sector en fuerte crecimiento, muy ligado a la demanda de la inteligencia artificial.
+
+Cruce entre IA y cripto (AI x crypto). La convergencia entre inteligencia artificial y blockchain: agentes de IA que transaccionan de forma autónoma usando criptomonedas y stablecoins, redes descentralizadas que coordinan los recursos de cómputo que la IA necesita, e identidades verificables para máquinas. Es una de las narrativas más fuertes de 2026.
+
+Blockchains modulares. La idea de separar las funciones de una blockchain (ejecución, consenso, disponibilidad de datos) en capas especializadas que cooperan, en lugar de hacerlo todo en una sola cadena. Es la dirección de la hoja de ruta de Ethereum.
+
+Mercados de predicción. Plataformas descentralizadas donde se apuesta sobre el resultado de eventos futuros (elecciones, deportes, economía), que ganaron mucha tracción a partir de 2025.
+
+Privacidad y conocimiento cero (ZK). El uso creciente de pruebas criptográficas de conocimiento cero (zero-knowledge) para verificar información sin revelarla, tanto para escalar (ZK-rollups) como para proteger la privacidad de las transacciones.
+
+Abstracción de cuentas (account abstraction). Mejoras (como la actualización Pectra de Ethereum en 2025) que hacen las wallets más fáciles y seguras de usar, permitiendo funciones como recuperar el acceso sin frase semilla, pagar comisiones con distintos tokens o automatizar operaciones, acercando la experiencia a la de una app financiera convencional.
+
+
+SÍNTESIS PARA EL ANÁLISIS
+
+Entender estos conceptos permite responder a casi cualquier pregunta del sector y, sobre todo, situar cada noticia o cada activo en su contexto. Tres ideas transversales conviene retener. Primera: distinguir siempre entre la tecnología (los protocolos descentralizados, que han demostrado ser robustos) y los intermediarios o diseños frágiles construidos a su alrededor (donde se concentran casi todos los desastres). Segunda: el sector evoluciona muy rápido, y las narrativas (DeFi, NFT, RWA, IA) rotan con los ciclos; conviene seguir los fundamentos y la adopción real más que el ruido del momento. Tercera: la jerga del mercado (FOMO, FUD, HODL, ballenas, índice de miedo y codicia) describe sobre todo emociones colectivas, y reconocerlas es el primer paso para no dejarse arrastrar por ellas. La comprensión de los conceptos, unida a la disciplina y al escepticismo, es lo que separa el análisis con criterio de la simple reacción a los titulares.
