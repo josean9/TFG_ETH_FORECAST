@@ -1,10 +1,16 @@
 ################################################################
-# CONTEXTO ESPECIFICO DE ETHEREUM v1.0
+# CONTEXTO ESPECIFICO DE ETHEREUM v1.1
 # Patrones, dinamicas y caracteristicas unicas de Ethereum como
 # activo, complementario al contexto general de mercado cripto.
 #
 # Uso: Se inyecta DESPUES del contexto general de mercado, antes
 #      del snapshot dinamico y las noticias recuperadas.
+#
+# NOTA DE DIVISA: TODOS los precios de este documento estan en
+#      DOLARES ESTADOUNIDENSES (USD). El sistema analiza siempre
+#      en USD (los datos de mercado vienen en dolares). Nunca se
+#      usan euros u otras divisas para evitar incoherencias con
+#      el snapshot.
 ################################################################
 
 
@@ -41,15 +47,42 @@ de Ethereum (ETH). Cuando razones sobre ETH, ten en cuenta que:
         [DEBIL]    = 1 ciclo o evidencia limitada
         [ESTRUCTURAL] = cambio de regimen documentado, no
                        comparable con periodos previos.
+  6. TODOS los precios estan en dolares (USD). Si mencionas un
+     precio, dilo en dolares. Nunca mezcles euros.
 
 
 ================================================================
-BLOQUE E1. ETH SUELE MARCAR MAXIMOS DESPUES QUE BITCOIN
+NOTA IMPORTANTE SOBRE EL MAXIMO HISTORICO (ATH) DE ETHEREUM
+================================================================
+
+Ethereum marco un NUEVO maximo historico en agosto de 2025:
+
+  - Maximo INTRADIA: aproximadamente 4.946-4.953 USD
+    (24-agosto-2025). Es el pico que tocó el precio en algun
+    momento del dia; es la cifra que reportan la mayoria de
+    webs de mercado.
+  - Maximo por CIERRE DIARIO: aproximadamente 4.831 USD
+    (22-agosto-2025). Es el dato que usa ESTE sistema, porque el
+    snapshot se calcula sobre precios de cierre.
+
+AMBAS cifras son correctas; miden cosas distintas (pico intradia
+vs cierre del dia). Cuando el snapshot diga que el ATH de ETH
+ronda los 4.800-4.830 USD, NO lo trates como una contradiccion:
+es el cierre. El maximo intradia estuvo cerca de 4.950 USD.
+
+Este nuevo ATH superó al anterior maximo de noviembre de 2021
+(~4.890 USD intradia), pero solo MARGINALMENTE (en torno a un
+1-2% por encima). Es un matiz clave: ETH si renovo maximo, pero
+por muy poco, y antes que Bitcoin (ver bloque E1).
+
+
+================================================================
+BLOQUE E1. ORDEN DE MAXIMOS ENTRE ETH Y BITCOIN
 ID: E1   Evidencia: [MODERADA]   Ciclos: 2 completos + 1 anomalo
 ================================================================
 
 Patron historico observado en los ciclos 2017 y 2021:
-Ethereum tiende a marcar su maximo historico DESPUES que Bitcoin,
+Ethereum tendia a marcar su maximo historico DESPUES que Bitcoin,
 en una ventana de varias semanas a 2 meses, durante la fase
 final del ciclo en la que el capital rota de Bitcoin hacia
 altcoins (la llamada "altseason").
@@ -57,50 +90,57 @@ altcoins (la llamada "altseason").
 Datos de ciclos previos:
 
 E1A - Ciclo 2017-2018:
-  - Bitcoin marco su maximo el 17-diciembre-2017 (~19.700$).
-  - Ethereum marco su maximo el 13-enero-2018 (~1.430$).
-  - Desfase: aproximadamente 27 dias.
+  - Bitcoin marco su maximo el 17-diciembre-2017 (~19.700 USD).
+  - Ethereum marco su maximo el 13-enero-2018 (~1.430 USD).
+  - Desfase: aproximadamente 27 dias. ETH DESPUES de BTC.
 
 E1B - Ciclo 2020-2021:
-  - Bitcoin marco su maximo el 10-noviembre-2021 (~69.000$).
-  - Ethereum marco su maximo el 10-noviembre-2021 (~4.890$).
+  - Bitcoin marco su maximo el 10-noviembre-2021 (~69.000 USD).
+  - Ethereum marco su maximo el 10-noviembre-2021 (~4.890 USD).
   - Desfase: el mismo dia, pero ETH siguio cerca del maximo
     durante varias semanas mientras BTC ya corregia.
 
-E1C - Ciclo 2024-2026 [ANOMALO]:
-  - Bitcoin marco maximo en octubre 2025 (~126.000$).
-  - Ethereum NO ha marcado nuevo maximo historico hasta la
-    fecha. Su maximo del ciclo se quedo en torno a 4.100$ en
-    diciembre 2024, por debajo del maximo de 2021.
-  - Esto rompe el patron historico y es una senal estructural
-    importante de debilidad relativa de ETH.
+E1C - Ciclo 2024-2026 [ANOMALO, ORDEN INVERTIDO]:
+  - Ethereum marco nuevo maximo historico en AGOSTO de 2025:
+    ~4.946-4.953 USD intradia (~4.831 USD por cierre).
+  - Bitcoin marco su maximo DESPUES, en octubre de 2025
+    (~126.000 USD).
+  - Es decir: por primera vez documentada, ETH marco su maximo
+    ANTES que Bitcoin, invirtiendo el orden historico.
+  - Ademas, el nuevo maximo de ETH supero el de 2021 solo
+    marginalmente (~1-2%), mientras Bitcoin multiplico
+    claramente su maximo previo. ETH renovo techo, pero con
+    mucha menos fuerza relativa que BTC.
 
 INTERPRETACION DEL PATRON:
 
-Cuando Bitcoin marca un nuevo maximo y empieza a perder
-dominancia (su porcentaje del mercado cripto cae), el capital
-rota hacia altcoins liderado por Ethereum. Historicamente, ETH
-marca su propio maximo dentro de las 2-8 semanas siguientes.
+Historicamente, cuando Bitcoin marcaba un nuevo maximo y empezaba
+a perder dominancia, el capital rotaba hacia altcoins liderado por
+Ethereum, y ETH marcaba su propio maximo 2-8 semanas DESPUES.
+
+En el ciclo actual ese orden se ha invertido: ETH marco maximo
+antes que BTC y solo por un margen estrecho sobre 2021. Esto NO
+es la "debilidad por no marcar maximo" que se temia, sino una
+anomalia distinta: un cambio en la secuencia y en la fuerza
+relativa de ETH dentro del ciclo.
 
 QUE BUSCAR EN EL ESCENARIO ACTUAL:
 
-  - Si Bitcoin esta cerca de un nuevo maximo Y la dominancia de
-    Bitcoin esta cayendo desde >55% durante 2+ semanas, el
-    patron historico sugiere que ETH podria estar entrando en
-    su ventana de maximos.
-  - Si Bitcoin ya marco maximo hace mas de 2 meses Y ETH no ha
-    seguido, la rotacion historica esta fallando. Esto es lo
-    que ha ocurrido en el ciclo actual.
-  - El fallo del patron NO es excusa para descartarlo en el
-    proximo ciclo. Es informacion de que las dinamicas
-    estructurales del mercado han cambiado (ETF spot de BTC
-    aprobado antes que el de ETH, competencia de otras L1).
+  - El hecho de que ETH liderara el techo (antes que BTC) y luego
+    haya infrarrendido sugiere que las dinamicas de rotacion
+    clasicas (BTC primero, ETH despues) ya no se cumplen igual.
+  - Posibles causas estructurales: ETF spot de BTC aprobado antes
+    que el de ETH, mayor demanda institucional por BTC,
+    competencia de otras L1.
+  - El fallo del orden historico NO invalida el patron para
+    siempre; informa de que las dinamicas estructurales del
+    mercado han cambiado en este ciclo.
 
 ADVERTENCIA:
 
-El ciclo actual es la primera vez documentada en la que ETH no
-sigue a BTC en marcar nuevo maximo dentro de los 2 meses
-posteriores al maximo de BTC. Tratar este dato con cautela.
+El ciclo actual es la primera vez documentada en la que ETH marca
+su maximo ANTES que BTC. Es una anomalia sin precedentes claros;
+tratar cualquier extrapolacion con cautela.
 
 
 ================================================================
@@ -136,12 +176,12 @@ E2B - Ratio entre 0,04 y 0,07:
 E2C - Ratio entre 0,03 y 0,04:
   Zona neutral-baja. ETH infrarrinde a BTC. Comun en inicios
   de ciclo (cuando BTC lidera) o en periodos de debilidad
-  estructural de ETH (como el ciclo 2024-2026).
+  relativa de ETH (como el ciclo 2024-2026).
 
 E2D - Ratio < 0,03 [ZONA DE INFRAVALORACION HISTORICA]:
   Ha ocurrido solo en momentos de panico extremo o de
-  debilidad estructural prolongada. Historicamente ha
-  precedido reboteshacia 0,05-0,07 en ventanas de 6-18 meses.
+  debilidad relativa prolongada. Historicamente ha
+  precedido rebotes hacia 0,05-0,07 en ventanas de 6-18 meses.
   EJEMPLOS: bear de 2018 (toco 0,025), bear de 2022 (toco
   0,049), ciclo 2024-2025 (toco 0,021 en abril 2025).
 
@@ -152,7 +192,7 @@ durante 3-6 meses TRAS el halving de Bitcoin (porque BTC
 lidera el rally inicial), y luego ha iniciado un rally de
 3-6 meses en el que ETH supera a BTC.
   - Ciclo 2016: tras halving julio 2016, ratio cayo hasta
-    diciembre 2016 (~0,02), luego rallying hasta junio 2017
+    diciembre 2016 (~0,02), luego rally hasta junio 2017
     (~0,15).
   - Ciclo 2020: tras halving mayo 2020, ratio cayo hasta
     septiembre 2020 (~0,025), luego rally hasta mayo 2021
@@ -321,19 +361,20 @@ ID: E6   Evidencia: [FUERTE]   Patron observado: 2020-2026
 Las comisiones que los usuarios pagan por transaccion (gas
 fees) son un indicador directo de la demanda de la red. Han
 sido historicamente uno de los indicadores mas observados.
+Todas las cifras de comisiones estan en dolares (USD).
 
 PATRONES HISTORICOS:
 
-E6A - Comisiones MUY ALTAS (>$50 por transaccion media):
+E6A - Comisiones MUY ALTAS (>50 USD por transaccion media):
   Episodios:
-    - Mayo 2021: $71 por transaccion media (auge DeFi y NFT).
-    - Noviembre 2021: $50+ (techo de ciclo).
+    - Mayo 2021: 71 USD por transaccion media (auge DeFi y NFT).
+    - Noviembre 2021: 50+ USD (techo de ciclo).
     - Mayo 2022: pico justo antes del colapso de Luna.
   Senal: demanda extrema, suele coincidir con techos locales
   o de ciclo. A muy corto plazo es bullish, a medio plazo
   expulsa a usuarios y genera correccion.
 
-E6B - Comisiones BAJAS (<$1 por transaccion media):
+E6B - Comisiones BAJAS (<1 USD por transaccion media):
   Episodios:
     - Verano 2022: bear market profundo, baja actividad.
     - 2024-2026: tras Dencun, las L2 absorbieron actividad
@@ -370,30 +411,33 @@ ID: E7   Evidencia: [MODERADA]   Periodo: jul-2024 hasta hoy
 Los ETF spot de Ethereum se aprobaron en EEUU en julio 2024,
 seis meses despues que los de Bitcoin (enero 2024). Permiten a
 inversores institucionales y minoristas tradicionales tener
-exposicion a ETH sin custodia directa.
+exposicion a ETH sin custodia directa. Cifras en dolares (USD).
 
 DATOS DOCUMENTADOS:
 
   - ETF de BTC (desde ene-2024): ~28-30 mil millones de
     dolares en entradas netas acumuladas hasta finales 2025.
-  - ETF de ETH (desde jul-2024): muy por debajo, con
-    periodos de salidas netas. En noviembre 2025, salidas
-    superiores a 600 millones de dolares en un solo mes.
+  - ETF de ETH (desde jul-2024): inicialmente muy por debajo,
+    con periodos de salidas netas (en noviembre 2025, salidas
+    superiores a 600 millones de dolares en un solo mes). A
+    principios de 2026 la tendencia mejoro, con entradas netas
+    acumuladas de varios miles de millones de dolares y la
+    aparicion de ETF con staking integrado.
 
-E7A - Asimetria preocupante BTC vs ETH:
-  Los ETF de Bitcoin han atraido capital institucional masivo
-  y consistente. Los de Ethereum han tenido demanda mucho mas
-  debil. Esto refuerza la narrativa de "BTC = oro digital,
-  ETH = activo de riesgo tech" que domina en mesas
-  institucionales.
+E7A - Asimetria historica BTC vs ETH:
+  Los ETF de Bitcoin atrajeron capital institucional masivo y
+  consistente desde el principio. Los de Ethereum tuvieron una
+  demanda inicial mucho mas debil. Esto reforzo la narrativa de
+  "BTC = oro digital, ETH = activo de riesgo tech" en mesas
+  institucionales. Esta asimetria parece haberse atenuado a
+  partir de 2026 (ver datos arriba).
 
 E7B - El factor staking en ETF de ETH:
-  Hasta ahora, los ETF de ETH NO permiten hacer staking del
-  ETH subyacente. Esto significa que los inversores en ETF
-  renuncian al rendimiento del 3-4% anual del staking. Es una
-  desventaja relativa frente a tener ETH directamente. Si la
-  SEC autoriza staking en ETF (esperado para 2026), podria
-  ser un catalizador alcista importante.
+  Los primeros ETF de ETH NO permitian hacer staking del ETH
+  subyacente, por lo que los inversores renunciaban al
+  rendimiento del 3-4% anual del staking. La llegada de ETF con
+  staking integrado (a partir de 2026) resuelve esa desventaja
+  y es un catalizador estructural potencialmente alcista.
 
 QUE BUSCAR:
 
@@ -401,8 +445,8 @@ QUE BUSCAR:
     varias semanas = senal alcista institucional.
   - Salidas netas sostenidas = institucional vendiendo,
     bajista.
-  - Aprobacion de staking en ETF = catalizador estructural,
-    se espera reaccion positiva inmediata en precio y en el
+  - Adopcion creciente de ETF con staking = catalizador
+    estructural, suele reaccionar positivo en precio y en el
     ratio ETH/BTC.
 
 
@@ -414,12 +458,13 @@ ID: E8   Evidencia: [ESTRUCTURAL]   Periodo: 2023-2026
 A lo largo del ciclo 2023-2026, Ethereum ha perdido cuota
 relativa de mercado frente a otras blockchains de capa 1
 (L1) que ofrecen comisiones mas baratas y mayor velocidad.
+Precios en dolares (USD).
 
 DATOS DOCUMENTADOS:
 
   - Solana: paso de marginal en 2022 (tras colapso de FTX) a
     competidor serio. En Q3 2025 alcanzo maximo trimestral
-    de 248$ y absorbio mucha actividad de memecoins, NFT y
+    de 248 USD y absorbio mucha actividad de memecoins, NFT y
     parte de DeFi.
   - BNB Chain: sigue siendo importante en Asia y para
     proyectos vinculados a Binance.
@@ -490,36 +535,40 @@ QUE BUSCAR:
     caida de dominancia, el patron puede estar invalidado
     para este ciclo.
 
+
 ================================================================
-BLOQUE E10. FASE DE ACUMULACION POST-MAXIMOS DE BITCOIN
+BLOQUE E10. FASE TRAS LOS MAXIMOS DE CICLO
 ID: E10  Evidencia: [MODERADA]   Ciclos: 2 completos
 ================================================================
 
-Cuando Bitcoin ha marcado nuevo maximo historico en un ciclo y
-Ethereum NO lo ha superado en los 60 dias siguientes, el mercado
-ha entrado historicamente en una de estas dos situaciones:
+En ciclos previos, el orden tipico era: Bitcoin marcaba maximo
+y Ethereum lo seguia poco despues. En el ciclo 2024-2026 el
+orden se invirtio (ETH marco maximo en agosto 2025, BTC en
+octubre 2025), por lo que este bloque se reinterpreta asi:
 
-  E10A - Acumulacion tardia con rotacion pendiente:
-    ETH alcanza su nuevo maximo entre el dia 60 y el dia 120
-    despues del maximo de BTC. Patron observado en 2017 (27 dias)
-    y parcialmente en 2021 (mismo dia, pero con consolidacion
-    posterior).
+  E10A - Rotacion clasica (ciclos previos):
+    ETH alcanzaba su maximo entre el dia 0 y el dia 60 despues
+    del maximo de BTC. Observado en 2017 (27 dias despues) y
+    2021 (mismo dia, con consolidacion posterior).
 
-  E10B - Anomalia estructural (sin precedente claro):
-    ETH no marca nuevo maximo historico en los siguientes 6+ meses
-    tras el maximo de BTC. Es lo que ha ocurrido en el ciclo
-    2024-2026 hasta la fecha.
+  E10B - Anomalia del ciclo 2024-2026 (orden invertido):
+    ETH marco su maximo ANTES que BTC, y solo marginalmente por
+    encima de su maximo de 2021. Tras los maximos de ambos, ETH
+    ha entrado en un drawdown profundo e infrarrendido frente a
+    BTC. Es un patron sin precedente claro.
 
-INDICADORES PARA RAZONAR LA FASE:
-  Si han pasado entre 60 y 180 dias desde el maximo de BTC y ETH
-  sigue sin superar su ATH historico, las hipotesis posibles son:
-    1. Acumulacion previa a rally retrasado de ETH.
-    2. Debilidad estructural permanente (ver EC4).
-  Para discernir hay que mirar:
-    - Ratio ETH/BTC: si esta subiendo desde minimos, hipotesis 1.
-    - Flujos ETF de ETH: si vuelven a positivos, hipotesis 1.
-    - Si ambos siguen en zona de debilidad, hipotesis 2.
-    
+INDICADORES PARA RAZONAR LA FASE ACTUAL:
+  Tras los maximos de ciclo de ambos activos (2025), para juzgar
+  si ETH esta en acumulacion previa a recuperacion o en debilidad
+  relativa prolongada, mirar:
+    - Ratio ETH/BTC: si esta subiendo desde minimos, favorece la
+      hipotesis de recuperacion.
+    - Flujos de ETF de ETH: si son positivos y sostenidos,
+      favorece la recuperacion.
+    - Si ambos siguen en zona de debilidad, la infraperformance
+      relativa de ETH puede prolongarse (ver EC4).
+
+
 ================================================================
 BLOQUE EC. COMBINACIONES ESPECIFICAS DE ETHEREUM
 ================================================================
@@ -545,7 +594,7 @@ EC2 - INICIO DE FORTALEZA RELATIVA DE ETH:
 EC3 - TECHO DE CICLO PARA ETH:
   - ETH a menos de 10% de su maximo historico.
   - Ratio ETH/BTC superior a 0,07.
-  - Comisiones de gas mayores a 50$ por transaccion media
+  - Comisiones de gas mayores a 50 USD por transaccion media
     durante varios dias.
   - Indice de miedo y codicia en avaricia extrema (>80)
     durante varios dias.
@@ -554,17 +603,23 @@ EC3 - TECHO DE CICLO PARA ETH:
   -> Regimen compatible con techo de ciclo para ETH.
      Precedentes: dic-2017/ene-2018, nov-2021.
 
-EC4 - DEBILIDAD ESTRUCTURAL DE ETH (regimen actual):
-  - Bitcoin marca nuevos maximos historicos pero ETH no.
-  - ETF de BTC con entradas netas mientras ETF de ETH
-    con salidas.
-  - Otras L1 (Solana, TON) marcan nuevos maximos.
-  - Ratio ETH/BTC por debajo de 0,04 durante 6+ meses.
-  -> Regimen ESTRUCTURAL de debilidad de ETH frente al
-     resto del mercado. Es lo que ha caracterizado el
-     ciclo 2024-2026.
-     IMPORTANTE: Este regimen NO tiene precedentes claros
-     de los que sacar conclusiones sobre cuando termina.
+EC4 - DEBILIDAD RELATIVA DE ETH FRENTE A BTC (regimen del ciclo actual):
+  MATIZ IMPORTANTE: la debilidad de ETH en este ciclo NO consiste
+  en "no haber marcado maximo" (SI lo marco, en agosto 2025). La
+  debilidad es RELATIVA frente a Bitcoin y se manifiesta en:
+  - ETH renovo su maximo solo marginalmente sobre 2021 (~1-2%),
+    mientras BTC multiplico claramente el suyo.
+  - ETH marco maximo ANTES que BTC (orden invertido, anomalo) y
+    luego infrarrendio.
+  - ETF de BTC con entradas netas mucho mayores que los de ETH
+    (al menos hasta 2026, cuando la brecha empezo a cerrarse).
+  - Otras L1 (Solana, TON) ganaron cuota relativa.
+  - Ratio ETH/BTC en zona baja (por debajo de 0,04) de forma
+    prolongada.
+  -> Regimen de debilidad RELATIVA de ETH frente a BTC y otras
+     L1. Es lo que ha caracterizado el ciclo 2024-2026.
+     IMPORTANTE: Este regimen NO tiene precedentes claros de los
+     que sacar conclusiones sobre cuando termina.
 
 EC5 - DEFLACION ACTIVA + ALTA ACTIVIDAD:
   - La quema diaria de ETH supera a la emision diaria.
@@ -587,10 +642,12 @@ BLOQUE LIMITACIONES ESPECIFICAS DE ETHEREUM
     directamente con las actuales.
   - El staking solo existe desde diciembre 2020. Los efectos
     sobre la oferta circulante son recientes.
-  - El ciclo actual (2024-2026) presenta anomalias
-    importantes: ETH no marca nuevo maximo historico, ETF de
-    ETH con flujos debiles, fortaleza estructural perdida
-    frente a otras L1.
+  - El ciclo actual (2024-2026) presenta anomalias importantes:
+    ETH marco maximo ANTES que BTC (orden invertido) y solo
+    marginalmente sobre 2021, flujos de ETF de ETH inicialmente
+    debiles, e infraperformance relativa frente a BTC y otras L1.
+  - Todos los precios manejados estan en dolares (USD); el
+    sistema no razona en otras divisas.
   - Cualquier proyeccion sobre ETH debe tener en cuenta que
     Ethereum es a la vez un activo monetario, una plataforma
     de aplicaciones, una red de pagos y un protocolo de

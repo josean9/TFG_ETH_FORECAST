@@ -46,7 +46,7 @@ DIR_TXT_EMBEB  = BASE_DIR / "data" / "txt_rag" / "embebidos"
 DIR_MODELOS    = BASE_DIR / "models"
 
 # ─── CONFIG ───────────────────────────────────────────────────────────────
-MODELO_LLM   = "gemini-2.5-flash"
+MODELO_LLM   = "gemini-3.5-flash"
 N_ETH, N_CRIPTO, N_MACRO = 8, 8, 8     # noticias por categoría
 TOP_K_EMBEB  = 4                        # fragmentos de docs embebidos
 CHUNK_SIZE, CHUNK_OVERLAP = 800, 150
@@ -479,6 +479,8 @@ def calcular_snapshot(fecha=None):
     comp_dom_btc    = _comparativa(sub, "btc_dominance", escala=100)
     comp_dom_eth    = _comparativa(sub, "eth_dominance", escala=100)
     comp_fg         = _comparativa(sub, "fear_greed")
+    comp_inflacion  = _comparativa(sub, "inflation")
+    comp_fed_rate   = _comparativa(sub, "fed_rate")
 
     # ── Bloque macro (si se pudo descargar) ───────────────────────────
     macro = None
@@ -558,6 +560,7 @@ def calcular_snapshot(fecha=None):
         # Macro (inflación/tipos del df_model + bloque yfinance)
         "inflacion": g("inflation"), "inflacion_chg30": g("inflation_chg30"),
         "fed_rate": g("fed_rate"), "fed_rate_chg30": g("fed_rate_chg30"),
+        "comp_inflacion": comp_inflacion, "comp_fed_rate": comp_fed_rate,
         "macro": macro,
     }
 
@@ -668,6 +671,10 @@ def snapshot_a_texto(s):
     L.append(f"  BTC 7d: {f(s['btc_ret_7d'], '%', signo=True)} | 30d: {f(s['btc_ret_30d'], '%', signo=True)}")
 
     # MACRO
+    linea = _linea_comparativa("Evolución inflación EEUU", s.get("comp_inflacion"), "%")
+    if linea: L.append(linea)
+    linea = _linea_comparativa("Evolución tipos de interés EEUU", s.get("comp_fed_rate"), "%")
+    if linea: L.append(linea)
     L.append("")
     L.append("CONTEXTO MACRO-FINANCIERO:")
     L.append(f"  Inflación interanual EEUU: {f(s['inflacion'], '%')} "
@@ -859,11 +866,31 @@ cualitativo (conocimiento experto + noticias). NO eres un oráculo: razonas con 
 {pregunta}
 </PREGUNTA>
 
-Responde en español, razonado y prudente. Integra lo cuantitativo con lo cualitativo,
-y apóyate en la TRAYECTORIA temporal de los datos (cómo ha cambiado el mercado en las
-últimas semanas y meses), no solo en la foto de hoy.
-La dirección de la LSTM es poco fiable (apoyo, no certeza); el régimen puede ir con retraso.
-Si procede, valora estrategias (DCA, esperar, etc.) con mentalidad de inversión a largo plazo."""
+INSTRUCCIONES DE RESPUESTA:
+Lo primero, IDENTIFICA qué tipo de pregunta te hacen y responde acorde. NUNCA empieces
+presentándote ("como analista...") ni sueltes un análisis si no te lo piden. Ve al grano.
+
+· SALUDO o charla trivial ("buenos días", "gracias", "¿qué tal?"):
+  responde con naturalidad y brevedad, como una persona normal. Nada de análisis ni datos.
+
+· PREGUNTA DE CONOCIMIENTO ("¿qué es Ethereum?", "cuéntame qué sabes de Ethereum",
+  "explícame el staking"): explica el CONCEPTO de forma clara y didáctica, apoyándote en
+  el conocimiento experto. NO uses los datos del día ni el régimen ni la señal: te piden
+  saber, no la situación actual del mercado.
+
+· PREGUNTA SOBRE NOTICIAS ("¿qué noticias afectan hoy a ETH?"): enumera las noticias
+  relevantes (titular + una línea de por qué importa). No lo conviertas en un análisis.
+
+· PREGUNTA DE ANÁLISIS o DECISIÓN ("¿cómo ves el mercado?", "¿compro?", "¿cómo le irá a
+  ETH?"): AHORA SÍ haz el análisis completo. Integra lo cuantitativo (régimen HMM + señal
+  LSTM) con lo cualitativo (noticias + contexto), y apóyate en la TRAYECTORIA temporal
+  (cómo ha cambiado el mercado en semanas/meses), no solo en la foto de hoy. Recuerda: la
+  dirección de la LSTM es poco fiable (apoyo, no certeza) y el régimen puede ir con retraso.
+  Si procede, valora estrategias (DCA, esperar...) con visión de largo plazo. Si te piden el
+  futuro, deja claro que NO se puede predecir con fiabilidad y que solo das escenarios.
+
+En todos los casos: responde en español, usa SOLO los datos relevantes para esa pregunta
+(no vuelques todo el contexto), y sé honesto con la incertidumbre."""
 
 
 def responder(pregunta, proveedor="gemini", historial=""):
