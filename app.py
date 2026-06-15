@@ -256,27 +256,89 @@ footer { display:none !important; }
 .ef-title-accent { color:#5b9bff; }
 .ef-subtitle { color:#8a93a6; font-size:0.95rem; margin-top:6px; }
 
+/* ── Chips de ejemplo ── */
+.ef-chips { flex-wrap: wrap !important; gap: 8px !important; justify-content: center; margin-bottom: 4px; }
 .ef-ejemplo button {
   background:#121829 !important; border:1px solid #222b40 !important;
-  color:#c3ccdd !important; text-align:left !important; border-radius:18px !important;
-  padding:16px 18px !important; font-weight:500 !important; min-height:62px !important;
+  color:#aeb8cc !important; border-radius:999px !important;
+  padding:8px 16px !important; font-weight:500 !important;
+  font-size:0.84rem !important; min-height:0 !important; width:auto !important;
   box-shadow:none !important;
-  transition: border-color .18s ease, background .18s ease, transform .1s ease !important;
+  transition: border-color .15s ease, color .15s ease !important;
 }
-.ef-ejemplo button:hover {
-  border-color:#5b9bff !important; background:#161d31 !important; transform: translateY(-1px);
-}
+.ef-ejemplo button:hover { border-color:#5b9bff !important; color:#e8edf5 !important; }
 
+/* ── Chat estilo conversación ── */
 .ef-chat { border-radius:20px !important; border:1px solid #222b40 !important; background:#0e1422 !important; }
-.ef-input textarea { border-radius:16px !important; background:#0f1626 !important; border:1px solid #222b40 !important; }
-.ef-send button { border-radius:16px !important; font-weight:600 !important; }
-
-.ef-panel { display:flex; flex-direction:column; gap:16px; }
-.ef-card { background:#121829; border:1px solid #222b40; border-radius:18px; padding:18px 20px; }
-.ef-card-head {
-  font-size:0.72rem; letter-spacing:0.8px; color:#8a93a6; font-weight:700;
-  display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;
+.ef-chat .message {
+  border:none !important; box-shadow:none !important;
+  font-size:0.95rem !important; line-height:1.65 !important;
 }
+/* Usuario: burbuja azul a la derecha */
+.ef-chat .message-row.user-row { justify-content: flex-end !important; }
+.ef-chat .message.user {
+  background:#2f6bff !important; color:#ffffff !important;
+  border-radius:18px 18px 4px 18px !important;
+  padding:11px 16px !important; max-width:78% !important;
+}
+/* Asistente: texto limpio a la izquierda, sin caja */
+.ef-chat .message.bot {
+  background:transparent !important; color:#dde4f0 !important;
+  padding:6px 4px !important; max-width:100% !important;
+}
+/* El pie de transparencia (régimen/señal) más discreto */
+.ef-chat .message.bot em { color:#7c8699; font-size:0.78rem; }
+.ef-chat .message.bot hr { border-color:#1a2233 !important; margin:10px 0 !important; }
+/* Iconos (copiar/compartir) solo al pasar el ratón */
+.ef-chat .icon-button-wrapper { opacity:0 !important; transition:opacity .15s ease; }
+.ef-chat .message-row:hover .icon-button-wrapper { opacity:1 !important; }
+
+/* ── Placeholder del chat centrado ── */
+.ef-chat .placeholder-content { height:100% !important; }
+.ef-chat .placeholder {
+  display:flex !important; align-items:center !important;
+  justify-content:center !important; height:100% !important;
+  text-align:center !important; color:#aeb8cc !important;
+}
+
+/* ── Caja de entrada estilo Claude/ChatGPT (botón dentro) ── */
+.ef-inputwrap {
+  position:relative !important;
+  background:#0f1626 !important;
+  border:1px solid #222b40 !important;
+  border-radius:18px !important;
+  padding:4px !important;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.ef-inputwrap:focus-within {
+  border-color:#5b9bff !important;
+  box-shadow:0 0 0 3px rgba(91,155,255,.15) !important;
+}
+.ef-input, .ef-input > * {
+  background:transparent !important; border:none !important; box-shadow:none !important;
+}
+.ef-input textarea {
+  background:transparent !important; border:none !important;
+  box-shadow:none !important; resize:none !important;
+  padding:12px 64px 12px 16px !important;
+  font-size:0.95rem !important;
+  scrollbar-width:none !important;            /* Firefox */
+}
+.ef-input textarea::-webkit-scrollbar { display:none !important; }  /* Chrome/Edge */
+
+.ef-send {
+  position:absolute !important; right:12px !important; bottom:12px !important;
+  width:38px !important; min-width:38px !important; max-width:38px !important;
+  flex:none !important;
+}
+.ef-send button {
+  width:38px !important; height:34px !important; min-width:0 !important;
+  padding:0 !important; border-radius:10px !important;
+  font-size:0.95rem !important; line-height:1 !important;
+  display:flex !important; align-items:center !important; justify-content:center !important;
+}
+
+
 .ef-live { color:#16c784; font-size:0.7rem; font-weight:600; }
 .ef-price-block { margin-bottom:14px; }
 .ef-coin { color:#c3ccdd; font-size:0.85rem; }
@@ -291,6 +353,20 @@ footer { display:none !important; }
 .ef-note { background:#0f1626; }
 .ef-note-title { color:#5b9bff; font-size:0.8rem; font-weight:700; margin-bottom:6px; }
 .ef-note-body { color:#8a93a6; font-size:0.8rem; line-height:1.45; }
+
+/* Matar el recuadro interior y el padding por defecto del scroll */
+.ef-chat .bubble-wrap { background:transparent !important; padding:10px 14px !important; }
+
+/* Aire entre turnos */
+.ef-chat .message-row { padding:7px 0 !important; }
+.ef-chat .flex-wrap { background:transparent !important; box-shadow:none !important; }
+
+/* El contenedor real del texto del bot, para tipografía limpia */
+.ef-chat .message.bot .message-content { font-size:0.95rem !important; line-height:1.65 !important; }
+
+/* Iconos copiar/like: discretos, solo al hover (nombre correcto en 6.16) */
+.ef-chat .message-buttons { opacity:0 !important; transition:opacity .15s ease; }
+.ef-chat .message-row:hover .message-buttons { opacity:1 !important; }
 """
 
 
@@ -318,27 +394,28 @@ with gr.Blocks(title="EtherForecast AI", fill_height=True) as demo:
 
         with gr.Column(scale=3):
             botones_ejemplo = []
-            with gr.Row():
-                for texto in EJEMPLOS[:3]:
-                    b = gr.Button(texto, elem_classes=["ef-ejemplo"])
-                    botones_ejemplo.append((b, texto))
-            with gr.Row():
-                for texto in EJEMPLOS[3:]:
-                    b = gr.Button(texto, elem_classes=["ef-ejemplo"])
+            with gr.Row(elem_classes=["ef-chips"]):
+                for texto in EJEMPLOS:
+                    b = gr.Button(texto, elem_classes=["ef-ejemplo"], size="sm")
                     botones_ejemplo.append((b, texto))
 
             chatbot = gr.Chatbot(
-                height=440, show_label=False, elem_classes=["ef-chat"],
-                placeholder="<strong>EtherForecast AI</strong><br>"
-                            "Pregunta sobre Ethereum, noticias, contexto de mercado o predicciones.",
+                height=520, show_label=False, elem_classes=["ef-chat"],
+                placeholder="<div style='text-align:center'>"
+                            "<div style='font-size:2rem; margin-bottom:6px'>⟠</div>"
+                            "<strong style='font-size:1.05rem'>EtherForecast AI</strong><br>"
+                            "<span style='color:#8a93a6'>Pregunta sobre Ethereum, noticias, "
+                            "contexto de mercado o predicciones.</span></div>",
             )
 
-            with gr.Row():
+            with gr.Group(elem_classes=["ef-inputwrap"]):
                 caja = gr.Textbox(
-                    show_label=False, scale=9, autofocus=True, elem_classes=["ef-input"],
+                    show_label=False, autofocus=True, elem_classes=["ef-input"],
                     placeholder="Pregunta sobre Ethereum, noticias, contexto o predicciones...",
+                    lines=1, max_lines=6,
                 )
-                enviar = gr.Button("Enviar ➤", variant="primary", scale=1, elem_classes=["ef-send"])
+                enviar = gr.Button("➤", variant="primary", elem_classes=["ef-send"])
+
 
         with gr.Column(scale=1, min_width=300):
             panel = gr.HTML(construir_panel_html())
