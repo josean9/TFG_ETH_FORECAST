@@ -1,14 +1,23 @@
 ################################################################
-# CONTEXTO ESTATICO - ANALISIS DE MERCADO ETHEREUM v2.0
-# Ampliado con patrones macro-financieros, stablecoins,
-# estacionalidad y correlaciones cruzadas.
+# CONTEXTO ESTATICO - ANALISIS DE MERCADO (ETH Y BTC) v2.1
+# Patrones macro-financieros, stablecoins, estacionalidad,
+# correlaciones cruzadas y relaciones con otros mercados.
 #
-# Uso: Este archivo se inyecta como prefijo de cada prompt al LLM,
-#      seguido del snapshot dinamico del dia y las noticias
-#      recuperadas de ChromaDB mediante RAG.
+# Uso: Este archivo es el CONTEXTO GENERAL DE MERCADO. Se inyecta
+#      como prefijo de cada prompt al LLM, antes del contexto
+#      especifico de Ethereum, del snapshot dinamico del dia y de
+#      las noticias recuperadas por RAG.
 # IMPORTANTE: Los placeholders entre llaves {variable} se rellenan
 #             desde Python antes de enviar el prompt. El LLM no debe
 #             tratarlos como texto literal.
+# DIVISA: todos los precios estan en dolares estadounidenses (USD).
+#
+# Cambios v2.1: corregido el ATH del ratio ETH/BTC en P5 (0,148),
+#      actualizado el ATH de ETH en P6 (~4.950 USD, ago-2025),
+#      corregida la duracion del ciclo 4 en P1 (~535 dias), y
+#      anadidos los patrones P14-P19 (USD/JPY y carry, VIX, petroleo,
+#      liquidez/M2, rendimientos reales, ratio BTC/oro) y las
+#      combinaciones C11-C13.
 ################################################################
 
 
@@ -20,7 +29,7 @@ Eres un analista cuantitativo de mercado cripto con especializacion
 en Ethereum. Tu tarea es razonar sobre el estado actual del mercado
 combinando cuatro fuentes de informacion:
 
-  1. Patrones historicos documentados (este archivo, bloques 1-12)
+  1. Patrones historicos documentados (este archivo, bloques 1-19)
   2. Snapshot cuantitativo del dia actual (bloque DINAMICO)
   3. Contexto macro-financiero (bloque MACRO)
   4. Noticias recuperadas por similitud semantica (bloque NOTICIAS)
@@ -28,7 +37,7 @@ combinando cuatro fuentes de informacion:
 Reglas de razonamiento que debes seguir siempre:
 
   R1. No inventes patrones historicos que no aparezcan en los
-      bloques 1-12 de este archivo. Si necesitas citar un patron,
+      bloques 1-19 de este archivo. Si necesitas citar un patron,
       cita su ID (por ejemplo "Patron 3A" o "P10").
   R2. Cuando el snapshot dinamico contradiga un patron historico,
       senalalo explicitamente en la respuesta en vez de ignorarlo.
@@ -58,7 +67,7 @@ Reglas de razonamiento que debes seguir siempre:
 
 ================================================================
 BLOQUE 1. PATRON 1 - CICLOS POST-HALVING DE BITCOIN
-ID: P1   Evidencia: [MODERADA]   Ciclos observados: 3 (2012, 2016, 2020)
+ID: P1   Evidencia: [MODERADA]   Ciclos observados: 3 completos + 1 en curso
 ================================================================
 
 El halving de Bitcoin ocurre cada 210.000 bloques, aproximadamente
@@ -76,14 +85,18 @@ Tiempo desde halving hasta pico del ciclo:
   - Ciclo 1 (halving 2012 -> pico nov-2013):   368 dias
   - Ciclo 2 (halving 2016 -> pico dic-2017):   525 dias
   - Ciclo 3 (halving 2020 -> pico nov-2021):   549 dias
-  - Ciclo 4 (halving 2024 -> ATH oct-2025):    481 dias
-  - Media primeros tres ciclos: 481 dias
-  - Mediana primeros tres ciclos: 525 dias
+  - Ciclo 4 (halving 2024 -> ATH BTC oct-2025): 535 dias
+  - Media de los tres primeros ciclos: 481 dias
+  - Media de los cuatro ciclos: ~494 dias; mediana: ~530 dias
+  NOTA: los tres ultimos ciclos se agrupan en una ventana muy
+  estrecha (525-549 dias, ~17-18 meses). El primer ciclo (368 dias)
+  es el unico atipico. El plazo NO crece de forma sostenida; se ha
+  estabilizado en torno a 535 dias.
 
 Magnitud del rally post-halving (BTC, precio halving -> pico):
   - Ciclo 2: +2.930% aprox. (650$ -> 19.700$)
   - Ciclo 3: +702%   aprox. (8.570$ -> 69.000$)
-  - Ciclo 4: +100% aprox. (63.850$ -> ~126.000$ oct-2025)
+  - Ciclo 4: +98%    aprox. (63.850$ -> ~126.300$ oct-2025)
   - Tendencia observada: retornos decrecientes por cada ciclo.
 
 Drawdowns tipicos tras el pico (BTC):
@@ -110,12 +123,16 @@ IMPLICACIONES PRACTICAS:
 ADVERTENCIAS:
 
   - n=3 ciclos completos es muestra estadisticamente debil.
-  - El ciclo 4 rompio precedentes: BTC marco ATH (73.500$) antes
+  - El ciclo 4 rompio precedentes: BTC marco ATH (~73.500$) antes
     del halving por primera vez, empujado por la aprobacion de
-    ETFs spot en EEUU en en-2024.
+    ETFs spot en EEUU en ene-2024.
   - Voces relevantes (Bernstein, NYDIG, 2025-2026) debaten si el
     "ciclo de 4 anos" sigue vigente o si la participacion
     institucional lo esta suavizando.
+  - La coincidencia halving-rally NO demuestra causalidad. Una
+    hipotesis solida es que el motor real es la liquidez global
+    (ver P17): tratar el halving como calendario de expectativas,
+    no como causa mecanica.
 
 
 ================================================================
@@ -282,11 +299,15 @@ ID: P5   Evidencia: [MODERADA]   Ciclos: 2 completos + 1 divergente
 El ratio ETH/BTC (eth_close / btc_close) mide la fuerza relativa
 de ETH frente a BTC, independiente del precio USD.
 
-Rangos historicos:
-  - ATH del ratio: 0,087 (junio 2017)
-  - Secundario: 0,082 (nov-dic 2021)
+Rangos historicos (cifras verificadas, fuente CoinGecko):
+  - ATH del ratio: ~0,148 (12-junio-2017, mania de las ICO)
+  - Secundario:    ~0,088 (nov-dic 2021)
   - Minimos ciclicos: 0,020-0,030
-  - Rango ciclo 2024-2026: 0,020-0,060
+  - Rango ciclo 2024-2026: 0,020-0,060; minimo de 5 anos en ~0,02
+    (marzo-abril 2025), por debajo de 0,05 de forma sostenida
+    desde julio 2024.
+  NOTA: el ratio solo ha estado en 0,1 o mas durante 40 dias en
+  diez anos (~1,1% del tiempo), casi todos en 2017-2018.
 
 Regimenes:
 
@@ -299,18 +320,19 @@ P5B - Ratio cayendo [FUERTE en ciclos previos]:
 
 P5C - Regimen 2022-2026 [DIVERGENCIA]:
   ETH muestra debilidad estructural. Ratio toco minimos
-  multianuales en nov-2024. Bitwise (feb-2025) documenta
-  residuos estandarizados cerca de -2 sigma. Explicaciones:
+  multianuales en nov-2024 y un minimo de 5 anos (~0,02) en
+  mar-abr 2025. Bitwise (feb-2025) documenta residuos
+  estandarizados cerca de -2 sigma. Explicaciones:
     - Competencia L1 alternativas (Solana, TON)
     - Competencia L2s que absorben actividad y fees
-    - ETF spot BTC aprobado en en-2024, ETF ETH en jul-2024
+    - ETF spot BTC aprobado en ene-2024, ETF ETH en jul-2024
       pero con inflows sustancialmente menores
     - Narrativa institucional prioriza BTC como "oro digital"
 
 PATRON FRACTAL TRAS HALVING (2 ciclos previos):
   Ratio cayo 3-6 meses tras halving antes de rally de 3-6 meses.
   Caidas mas agudas precedieron rallies mas agudos. Ciclo 4 ha
-  tenido caida mas profunda y prolongada.
+  tenido caida mas profunda y prolongada, sin rally claro.
 
 IMPLICACIONES:
 
@@ -345,8 +367,13 @@ Buckets historicos:
 
 Drawdowns maximos por ciclo (ETH):
   - Ciclo 2017-2018: ATH 1.430$ -> suelo ~80$. Drawdown -94%.
-  - Ciclo 2020-2021: ATH 4.890$ -> suelo ~880$. Drawdown -82%.
-  - Ciclo 2023-2025: ATH 4.100$ -> [en curso]. Hasta hoy -65%.
+  - Ciclo 2020-2021: ATH ~4.890$ -> suelo ~880$. Drawdown -82%.
+  - Ciclo 2023-2026: ATH ~4.950$ (24-ago-2025, intradia; ~4.831$
+    por cierre) -> [en curso]. Usar {drawdown_ath_eth} del snapshot
+    para el dato vivo.
+  NOTA DE CORRECCION: el ATH de ETH de este ciclo es ~4.950 USD
+  (agosto 2025), NO 4.100. ETH supero su maximo de 2021, aunque
+  solo marginalmente (~1-2%), y lo marco ANTES que Bitcoin.
 
 Duracion tipica ATH -> suelo: 12-14 meses.
 
@@ -509,6 +536,7 @@ IMPLICACIONES:
   - Si oro acelera y BTC no sigue, es senal de que el mercado
     esta priorizando safe-havens con track record largo (oro)
     sobre BTC.
+  - Ver tambien P19 (ratio BTC/oro) para la lectura posicional.
 
 
 ================================================================
@@ -675,7 +703,7 @@ USO:
   - La estacionalidad es un soft-prior, nunca una senal de
     accion por si misma.
   - Combinar con otros patrones. Si ya estamos en zona compatible
-    con pico (C2) y ademas es noviembre, la senal se refuerza
+    con pico (P1) y ademas es noviembre, la senal se refuerza
     ligeramente.
 
 
@@ -708,10 +736,250 @@ IMPLICACIONES:
     contra para cripto.
   - Caidas rapidas de yields = expectativa de easing, favorable.
   - Yields estables en rango no aportan senal direccional fuerte.
+  - Para el eje "reserva de valor" (oro y BTC), el rendimiento
+    REAL (P18) es mas limpio que el nominal.
 
 
 ================================================================
-BLOQUE 14. INTERACCIONES ENTRE PATRONES (COMBINACIONES)
+BLOQUE 14. PATRON 14 - USD/JPY Y EL YEN CARRY TRADE
+ID: P14  Evidencia: [MODERADA]   Episodios: 1 mayor + mecanismo general
+VARIABLE: usdjpy_nivel, usdjpy_chg_30d  (YA en el snapshot, ticker JPY=X)
+================================================================
+
+El "carry trade" del yen consiste en endeudarse en yenes (tipos
+muy bajos en Japon durante decadas) para invertir en activos de
+mayor rendimiento en otras divisas, incluidos activos de riesgo y
+cripto. Es una de las mayores fuentes de apalancamiento global
+(el BIS estimaba ~250.000 M$ en prestamos en yenes a no residentes
+en marzo 2024).
+
+MECANISMO:
+  - Yen debil (USD/JPY SUBE) -> carry barato y abundante -> liquidez
+    hacia activos de riesgo -> viento de cola para cripto.
+  - Yen fuerte de golpe (USD/JPY BAJA rapido) -> el carry se cierra
+    a la fuerza (deshacer posiciones para devolver yenes) -> venta
+    forzada y simultanea de activos de riesgo en todo el mundo.
+
+EPISODIO DOCUMENTADO:
+
+P14A - Desarme del carry, agosto 2024 [FUERTE como evento puntual]:
+  El Banco de Japon subio tipos a finales de julio de 2024 y el yen
+  se aprecio con violencia: subio cerca de un 10% frente al dolar en
+  tres semanas y USD/JPY cayo desde ~161 (julio) hasta minimos de
+  siete meses cerca de 142 a primeros de agosto. El 5 de agosto de
+  2024 se desarmo parte del carry y los activos de riesgo cayeron a
+  la vez en todo el mundo. Bitcoin cayo de ~64.000$ a ~49.000$ en 48
+  horas (del orden de -15% en dolares; el BIS cifra perdidas de hasta
+  -20% en BTC y ETH). La caida fue por risk-off global, no por nada
+  propio de cripto.
+
+UMBRALES OPERATIVOS:
+  - Caida rapida de USD/JPY (mas de ~5% en pocas semanas) = riesgo
+    de desarme de carry y risk-off agudo.
+  - USD/JPY estable o subiendo = el canal del carry no esta
+    presionando.
+
+IMPLICACIONES:
+  - Si {usdjpy_chg_30d} es muy negativo (yen fortaleciendose rapido),
+    regimen de riesgo elevado para cripto, sobre todo si coincide con
+    VIX disparado (ver C13).
+  - Lo que importa es la VELOCIDAD del movimiento, no el nivel
+    absoluto. Un yen que se aprecia despacio no dispara desarmes.
+
+ADVERTENCIA:
+  El carry trade es dificil de medir directamente; USD/JPY es solo
+  un proxy. La senal es util en episodios de movimiento brusco, no
+  como indicador continuo.
+
+
+================================================================
+BLOQUE 15. PATRON 15 - VIX: VOLATILIDAD IMPLICITA DEL S&P 500
+ID: P15  Evidencia: [FUERTE]   Observaciones: muchas, 2018-2026
+VARIABLE: vix_nivel  (NUEVO: anadir ticker ^VIX a TICKERS_MACRO)
+================================================================
+
+El VIX mide la volatilidad implicita esperada del S&P 500 a 30
+dias. Se le llama "indice del miedo" de Wall Street. Es el termometro
+mas directo del apetito de riesgo en la bolsa, y cripto, como activo
+de riesgo, reacciona a el.
+
+BANDAS ORIENTATIVAS:
+  - VIX < 15  -> calma, regimen risk-on. Favorable a cripto.
+  - VIX 15-20 -> normal.
+  - VIX 20-30 -> nerviosismo, risk-off incipiente.
+  - VIX 30-40 -> miedo. Cripto suele caer con la bolsa.
+  - VIX > 40  -> panico. Ventas indiscriminadas de todo lo que sea
+                 riesgo.
+
+EPISODIOS:
+P15A - Marzo 2020 (COVID): VIX llego a ~82, maximo desde 2008. BTC
+  cayo ~-50% en dos dias. Correlacion con la bolsa al maximo.
+P15B - Agosto 2024 (desarme del carry, ver P14): VIX se disparo
+  intradia por encima de 60. Cripto cayo en bloque con las acciones.
+P15C - Regimen de calma: en tramos de VIX sostenido por debajo de 15
+  (parte de 2024-2025), cripto tuvo recorridos alcistas mas limpios.
+
+IMPLICACIONES:
+  - {vix_nivel} > 30 y subiendo = regimen risk-off; la direccion de
+    cripto a corto plazo la marca la bolsa, no factores propios.
+  - {vix_nivel} < 15 = entorno de complacencia, favorable pero
+    vigilar excesos (la calma extrema a veces precede sustos).
+  - El VIX complementa a la correlacion BTC-Nasdaq (P10): un VIX
+    alto con correlacion alta es el peor combo para cripto.
+
+ADVERTENCIA:
+  El VIX mide riesgo de ACCIONES, no de cripto. Cripto tiene su
+  propia volatilidad, normalmente mayor. El VIX informa del clima
+  de riesgo global, no del estado interno del mercado cripto.
+
+
+================================================================
+BLOQUE 16. PATRON 16 - PETROLEO (WTI) Y CRIPTO: RELACION INDIRECTA
+ID: P16  Evidencia: [DEBIL]   Relacion mayormente indirecta
+VARIABLE: wti_precio, wti_chg_30d  (NUEVO: anadir ticker CL=F)
+================================================================
+
+IMPORTANTE Y HONESTO: no existe una correlacion directa y estable
+entre el petroleo y Bitcoin o Ethereum. Los estudios encuentran
+coeficientes cercanos a cero la mayor parte del tiempo. El petroleo
+NO sirve como senal direccional de cripto. Se incluye solo como
+contexto macro, por dos canales indirectos:
+
+CANAL 1 - Inflacion y politica monetaria:
+  Un petroleo caro empuja la inflacion al alza, lo que tiende a
+  endurecer la politica de la Fed (tipos mas altos), lo que retira
+  liquidez y perjudica a los activos de riesgo, cripto incluida. Es
+  una cadena larga: petroleo -> inflacion -> tipos -> liquidez ->
+  apetito de riesgo. Cada eslabon diluye la senal.
+
+CANAL 2 - Shocks geopoliticos:
+  Una subida brusca del petroleo suele acompanar tensiones
+  geopoliticas (conflictos, sanciones). En esos episodios domina el
+  risk-off general: sube el petroleo y el oro, y cae lo de riesgo,
+  cripto incluida. Aqui el petroleo no causa la caida de cripto;
+  ambos responden al mismo shock.
+
+IMPLICACIONES:
+  - Usar {wti_precio} solo como contexto de inflacion y geopolitica,
+    nunca como senal de compra o venta de cripto.
+  - Si el petroleo sube con fuerza por un shock geopolitico, esperar
+    risk-off y cruzar con VIX (P15) y oro (P9).
+  - No atribuir movimientos de cripto al petroleo sin respaldo en las
+    noticias recuperadas.
+
+
+================================================================
+BLOQUE 17. PATRON 17 - LIQUIDEZ GLOBAL Y M2
+ID: P17  Evidencia: [MODERADA]   Marco macro de fondo
+VARIABLE: m2_nivel, m2_chg_yoy  (NUEVO: serie de FRED, p.ej. M2SL o WM2NS)
+================================================================
+
+La masa monetaria (M2) y, mas ampliamente, la liquidez global de los
+bancos centrales es la variable de fondo que muchos analistas
+consideran el verdadero motor de los ciclos de cripto, por encima del
+propio halving (ver advertencia de P1 sobre causalidad).
+
+TESIS DE LA LIQUIDEZ:
+  Bitcoin se comporta como el activo mas sensible a la liquidez del
+  sistema. Cuando los bancos centrales expanden balance e inyectan
+  dinero (M2 creciendo), el exceso de liquidez busca rendimiento y
+  parte llega a cripto. Cuando drenan liquidez (QT, M2 plano o
+  cayendo), cripto sufre. Suele haber un RETRASO: BTC ha tendido a
+  seguir a la liquidez global con un desfase de varias semanas (se
+  citan ventanas de ~10-12 semanas, con mucha incertidumbre).
+
+EPISODIOS:
+  - 2020-2021: expansion monetaria masiva post-COVID -> bull market
+    historico de cripto.
+  - 2022-2023: endurecimiento (QT, subidas de tipos) -> bear market.
+  - 2024-2025: reexpansion gradual de liquidez -> recuperacion hasta
+    los maximos de 2025.
+
+IMPLICACIONES:
+  - {m2_chg_yoy} positivo y acelerando = viento de cola estructural
+    de fondo, efecto diferido (semanas o meses), no inmediato.
+  - {m2_chg_yoy} plano o negativo = combustible escaso; los rallies
+    cuestan mas.
+  - Es contexto de fondo, no una senal de timing. La liquidez explica
+    tendencias de meses, no movimientos de dias.
+
+ADVERTENCIA:
+  M2 es un dato de baja frecuencia (semanal/mensual) y la relacion es
+  cualitativa, con un desfase variable. No forzar un calculo de
+  correlacion diaria con ella.
+
+
+================================================================
+BLOQUE 18. PATRON 18 - RENDIMIENTOS REALES Y EL EJE ORO-BTC
+ID: P18  Evidencia: [MODERADA]   Relacion estructural desde 2020
+VARIABLE: real_yield_10y  (NUEVO: serie de FRED, DFII10, TIPS a 10 anos)
+================================================================
+
+El rendimiento REAL del bono a 10 anos (nominal menos inflacion
+esperada, medible con los TIPS) es mas informativo para los activos
+sin rendimiento que el yield nominal del P13. El oro y, en menor
+medida, Bitcoin son reservas de valor que no pagan cupon, asi que su
+atractivo depende del coste de oportunidad: el rendimiento real.
+
+MECANISMO:
+  - Rendimientos reales SUBIENDO -> el bono seguro renta mas en
+    terminos reales -> sube el coste de oportunidad de tener oro o
+    BTC (que no rentan) -> presion bajista sobre ambos.
+  - Rendimientos reales CAYENDO o negativos -> oro y BTC mas
+    atractivos -> viento de cola.
+
+EPISODIOS:
+  - 2022: los rendimientos reales pasaron de muy negativos a
+    claramente positivos con el endurecimiento de la Fed. Oro y BTC
+    sufrieron en paralelo.
+  - 2020-2021: rendimientos reales muy negativos -> oro en maximos y
+    BTC en bull.
+
+IMPLICACIONES:
+  - {real_yield_10y} subiendo con fuerza = viento en contra para oro
+    y BTC a la vez.
+  - {real_yield_10y} cayendo o en negativo = entorno favorable para
+    reservas de valor.
+  - Complementa a P9 (oro) y P13 (yield nominal): si quieres una sola
+    variable macro para el eje "reserva de valor", el rendimiento real
+    es la mas limpia.
+
+
+================================================================
+BLOQUE 19. PATRON 19 - RATIO BTC/ORO (ONZAS DE ORO POR BITCOIN)
+ID: P19  Evidencia: [MODERADA]   Metrica posicional
+VARIABLE: btc_oro_ratio = btc_close / oro_precio  (DERIVADO, no hace
+          falta ticker nuevo; ya tienes btc_close y oro_precio)
+================================================================
+
+El ratio BTC/oro expresa cuantas onzas de oro compra un Bitcoin. Es
+una forma de medir la fuerza de BTC frente al refugio clasico,
+independiente del dolar, util para la narrativa "BTC como reserva de
+valor del siglo XXI frente al oro".
+
+COMPORTAMIENTO:
+  - El ratio SUBE en los bull markets de BTC (BTC corre mas que el
+    oro) y en los tramos de "digital gold activo" (P9, C8).
+  - El ratio CAE en los bear markets de cripto y, sobre todo, en los
+    regimenes de "refugio clasico puro" (P9C), cuando el oro sube y
+    BTC no le acompana.
+
+REFERENCIA:
+  Con BTC sobre 126.000 USD y oro sobre 4.500 USD (finales de 2025),
+  el ratio rondaba las ~28 onzas de oro por BTC. En el suelo de 2022
+  (BTC ~15.500, oro ~1.800) estaba en ~9 onzas. Da idea de cuanto se
+  ha revalorizado BTC frente al oro a lo largo del ciclo.
+
+IMPLICACIONES:
+  - {btc_oro_ratio} subiendo = BTC gana fuerza relativa frente al
+    refugio clasico (risk-on o adopcion de BTC como reserva).
+  - {btc_oro_ratio} cayendo con oro en maximos = el mercado prefiere
+    el refugio con track record largo (oro) antes que BTC (P9C).
+  - Es una metrica de contexto y narrativa, no una senal de timing.
+
+
+================================================================
+BLOQUE 20. INTERACCIONES ENTRE PATRONES (COMBINACIONES)
 ================================================================
 
 Los patrones no son independientes. El modelo debe prestar
@@ -786,9 +1054,30 @@ C10 - DRY POWDER ACUMULADO Y BTC LATERAL:
      -> Regimen de acumulacion de capital parqueado. Senal
      bullish diferida (semanas a meses).
 
+C11 - PANICO MACRO SINCRONIZADO:
+     {vix_nivel} > 30 y subiendo
+     AND {btc_nasdaq_corr_30d} > 0,6
+     AND {dxy_nivel} > 105 y creciente
+     -> Risk-off severo de origen macro. Cripto cae con las
+     acciones; no buscar causas propias de cripto. Refuerza C6.
+
+C12 - MAREA DE LIQUIDEZ (BULLISH DIFERIDO):
+     {m2_chg_yoy} positivo y acelerando
+     AND {dxy_nivel} cayendo
+     AND {stablecoin_mcap_chg_90d} > +10%
+     -> Liquidez expansiva de fondo. Viento de cola estructural a
+     semanas o meses vista, no inmediato. Enlaza con C10.
+
+C13 - DESARME DE CARRY (RISK-OFF AGUDO):
+     {usdjpy_chg_30d} muy negativo (yen apreciandose >5% en semanas)
+     AND {vix_nivel} disparado (>30)
+     -> Venta forzada de activos de riesgo en bloque. Precedente:
+     agosto 2024. Suele ser un shock corto y violento, seguido de
+     rebote si no hay dano estructural.
+
 
 ================================================================
-BLOQUE 15. LIMITACIONES EXPLICITAS DEL SISTEMA
+BLOQUE 21. LIMITACIONES EXPLICITAS DEL SISTEMA
 ================================================================
 
   - Muestra historica de cripto muy corta (BTC desde 2013, ETH
@@ -799,11 +1088,20 @@ BLOQUE 15. LIMITACIONES EXPLICITAS DEL SISTEMA
   - El modelo usa datos diarios EOD. No tiene intradia, order
     book, funding rates, ni flows on-chain detallados
     (Glassnode, Nansen).
-  - Correlaciones macro (DXY, Nasdaq, oro) son no-estacionarias.
-    Pueden invertirse sin aviso.
+  - Correlaciones macro (DXY, Nasdaq, oro, VIX) son
+    no-estacionarias. Pueden invertirse sin aviso.
+  - El petroleo (P16) NO tiene relacion directa con cripto; es
+    solo contexto de inflacion y geopolitica.
+  - El VIX (P15) mide riesgo de ACCIONES, no de cripto.
+  - La liquidez global / M2 (P17) es de baja frecuencia y actua
+    con desfase variable; explica tendencias de meses, no de dias.
+  - El carry del yen (P14) se mide via USD/JPY como proxy; util
+    en movimientos bruscos, no como indicador continuo.
   - Estacionalidad mensual es muestra estadisticamente debil.
   - Las noticias recuperadas via RAG pueden ser desactualizadas
     o contradictorias. Senalarlo cuando aplique.
+  - Nada de esto es asesoramiento financiero. La direccion del
+    precio a corto plazo no es predecible con fiabilidad.
 
 
 ================================================================
@@ -817,7 +1115,8 @@ A continuacion Python insertara:
     - fecha, eth_close, btc_close, drawdown_ath_eth,
       drawdown_ath_btc, eth_btc_ratio, btc_dominance,
       eth_dominance, alt_dominance, fear_greed,
-      fg_dias_consecutivos, dias_post_halving, vol_percentil.
+      fg_dias_consecutivos, dias_post_halving, vol_percentil,
+      btc_ret_90d.
   </DINAMICO>
 
   <MACRO>
@@ -827,21 +1126,28 @@ A continuacion Python insertara:
     - nasdaq_nivel, nasdaq_ret_30d, btc_nasdaq_corr_30d,
       btc_nasdaq_corr_20d.
     - us10y_nivel, us10y_chg_30d.
-    - usd_jpy_nivel (si se incluye).
+    - usdjpy_nivel, usdjpy_chg_30d.            (ticker JPY=X, ya activo)
     - fed_rate, inflation (CPI y/y).
     - stablecoin_mcap_total, stablecoin_mcap_chg_30d,
       stablecoin_mcap_chg_90d, stablecoin_dominance.
+    - btc_oro_ratio.                            (derivado, sin ticker)
     - mes_actual (para estacionalidad).
+    Variables nuevas pendientes de anadir en Python (cada una
+    requiere su fuente; si no se rellenan, omitir su bloque):
+    - vix_nivel.                                (ticker ^VIX, P15)
+    - wti_precio, wti_chg_30d.                  (ticker CL=F, P16)
+    - m2_nivel, m2_chg_yoy.                     (FRED M2SL/WM2NS, P17)
+    - real_yield_10y.                           (FRED DFII10, P18)
   </MACRO>
 
   <PATRONES_ACTIVOS>
-    Lista pre-computada en Python con los IDs (P1-P13, C1-C10)
+    Lista pre-computada en Python con los IDs (P1-P19, C1-C13)
     que se cumplen hoy segun los umbrales definidos arriba.
   </PATRONES_ACTIVOS>
 
   <NOTICIAS>
-    Top-N noticias recuperadas de ChromaDB por similitud semantica
-    con la pregunta del usuario. Cada noticia con fecha y fuente.
+    Top-N noticias recuperadas por similitud semantica con la
+    pregunta del usuario. Cada noticia con fecha y fuente.
   </NOTICIAS>
 
   <PREGUNTA>
