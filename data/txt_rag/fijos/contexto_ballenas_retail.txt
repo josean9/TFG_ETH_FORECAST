@@ -1,0 +1,332 @@
+################################################################
+# CONTEXTO - COMPORTAMIENTO DE BALLENAS Y RETAIL (ON-CHAIN) v1.2
+#
+# Documento de conocimiento sobre como suele reaccionar el mercado
+# ante los movimientos de los grandes tenedores (ballenas) frente a
+# los pequenos (retail). Cubre un area que el resto de ficheros
+# apenas toca.
+#
+# NATURALEZA DE ESTE FICHERO: es una EXPLICACION GENERICA de
+#   mecanismos, no una lista de sucesos. El snapshot actual del
+#   sistema es de precio y macro (precios EOD, DXY, oro, Nasdaq...)
+#   y NO incluye datos on-chain. Por tanto, estos bloques sirven
+#   para que el modelo RAZONE sobre lo que el usuario o una noticia
+#   le describan (por ejemplo "el precio se acerca al coste medio de
+#   las ballenas y estas siguen comprando"), aplicando la regla
+#   general. No esperes que Python rellene {variables} aqui.
+#
+# DIVISA: todos los precios estan en dolares (USD).
+#
+# HONESTIDAD: el comportamiento de las ballenas es una senal de
+#   probabilidad, NO una bola de cristal, con muchos falsos
+#   positivos. El bloque de limitaciones es parte esencial del
+#   documento.
+################################################################
+
+
+================================================================
+INSTRUCCIONES DE USO PARA EL MODELO
+================================================================
+
+  - Cita los bloques por su ID (W1, W2...).
+  - RAZONA SIEMPRE a partir de las reglas genericas de cada bloque.
+    Los ejemplos ilustrativos son solo para entender el mecanismo;
+    NUNCA bases tu respuesta en un ejemplo concreto ni asumas que
+    el caso del ejemplo es lo que esta pasando ahora.
+  - Usa este contexto SOLO cuando la pregunta o las noticias
+    mencionen ballenas, grandes tenedores, acumulacion, distribucion,
+    flujos de exchange, coste medio (realized price) o comportamiento
+    del retail. Si no se menciona, no lo fuerces.
+  - El dato concreto lo aporta el usuario o la noticia; este fichero
+    aporta el significado. Aplica la regla a lo que te describan.
+  - Habla en lenguaje natural: "las ballenas estan acumulando", no
+    "whale_balance_chg > 0".
+  - El comportamiento de las ballenas se interpreta SIEMPRE como
+    apoyo o contradiccion de otras senales (miedo y codicia,
+    drawdown, ratio), nunca de forma aislada.
+
+
+================================================================
+BLOQUE W1. QUE ES UNA BALLENA Y COMO SE CLASIFICAN LAS CARTERAS
+ID: W1   Evidencia: [ESTRUCTURAL]   (definiciones, no patron)
+================================================================
+
+Las plataformas on-chain (Glassnode, Santiment, CryptoQuant)
+clasifican las carteras por tamano y comportamiento, no por
+identidad. Las categorias habituales:
+
+  - Ballenas y grandes tenedores: cohortes por saldo (por ejemplo,
+    miles o decenas de miles de monedas). Suelen ser instituciones,
+    fondos o grandes patrimonios. Sus movimientos son deliberados,
+    de baja frecuencia y de alta conviccion.
+
+  - Retail (gambas y delfines): carteras pequenas. Representan al
+    inversor minorista. Su comportamiento es mas emocional: compra
+    por FOMO en velas verdes y vende por panico en velas rojas.
+
+  - Direcciones de acumulacion: carteras SIN historial de venta
+    (muchas recien creadas). Son la huella mas limpia de compra de
+    conviccion, porque por definicion no han vendido nunca.
+
+  - Tenedores de largo plazo (LTH) frente a corto plazo (STH): se
+    separan por antiguedad de las monedas, no por tamano. Los LTH
+    actuan como estabilizadores; los STH son los que mas venden en
+    panico.
+
+METRICAS QUE USAN ESTAS PLATAFORMAS (para que el modelo las
+reconozca en noticias):
+  - Realized price / coste medio: precio medio al que un grupo
+    compro sus monedas.
+  - MVRV: precio de mercado frente al precio realizado.
+  - SOPR: si las monedas que se mueven se venden con ganancia o
+    perdida.
+  - Accumulation Trend Score (Glassnode): de 0 a 1; cerca de 1 =
+    acumulacion fuerte de los grandes.
+  - Flujos de exchange (netflow): entradas y salidas de monedas a
+    los exchanges.
+  - Exchange Supply Ratio: proporcion de la oferta que esta en
+    exchanges.
+
+
+================================================================
+BLOQUE W2. EL COSTE MEDIO DE LAS BALLENAS COMO SOPORTE
+ID: W2   Evidencia: [MODERADA]
+================================================================
+
+Regla general: el coste medio (realized price) de las ballenas y de
+las direcciones de acumulacion tiende a actuar como SOPORTE. Cuando
+el precio de mercado se acerca a ese coste medio o cae por debajo,
+esos grandes tenedores tienden a intensificar la compra, porque
+defienden su posicion y consideran esos niveles atractivos.
+
+LOGICA:
+  El realized price es a la vez un nivel psicologico y estructural.
+  El dinero inteligente hace lo posible por no quedar en perdida y
+  defiende la zona de su coste medio. Mientras las ballenas siguen
+  acumulando en esa zona (o incluso por debajo), esta se refuerza
+  como suelo. Que el coste medio de las direcciones de acumulacion
+  suba con el tiempo indica compra constante, no trading de corto
+  plazo.
+
+EJEMPLO ILUSTRATIVO (no es la base del razonamiento):
+  Tras una caida fuerte, el precio se aproxima al coste medio de las
+  direcciones de acumulacion. En lugar de vender, estas siguen
+  aumentando su saldo, e incluso compran cuando el precio cae por
+  debajo de su propio coste medio, asumiendo perdida latente. El
+  precio rebota en esa zona. Es la lectura tipica de conviccion.
+
+IMPLICACIONES:
+  - Si el precio esta cerca o por debajo del coste medio de las
+    ballenas Y estas siguen comprando, es un regimen historicamente
+    compatible con suelo o acumulacion.
+  - Si el precio esta muy por encima del coste medio de las ballenas
+    y estas empiezan a mover monedas a exchanges, es lo contrario:
+    posible toma de beneficios (ver W5).
+
+
+================================================================
+BLOQUE W3. ACUMULACION FRENTE A DISTRIBUCION
+ID: W3   Evidencia: [MODERADA]
+================================================================
+
+Acumulacion = los grandes tenedores aumentan su saldo neto.
+Distribucion = lo reducen, normalmente vendiendo a quien compra
+mas arriba.
+
+Como se detecta:
+  - Saldo de las cohortes de ballenas creciendo durante semanas =
+    acumulacion. Cayendo = distribucion.
+  - Accumulation Trend Score cerca de 1 = acumulacion amplia y
+    fuerte; cerca de 0 = distribucion o desinteres.
+  - Las direcciones de acumulacion (sin historial de venta)
+    recibiendo entradas de forma sostenida = acumulacion de
+    conviccion.
+
+REGLA DE TIEMPO IMPORTANTE:
+  La acumulacion de las ballenas se construye en SEMANAS o meses,
+  no en horas. Compran despacio y en tramos para no mover el precio.
+  Por eso no sirve para cazar el suelo exacto; sirve para identificar
+  un regimen sostenido. Un movimiento aislado de un dia dice poco.
+
+
+================================================================
+BLOQUE W4. FLUJOS DE EXCHANGE COMO PRESION DE COMPRA O VENTA
+ID: W4   Evidencia: [MODERADA]
+================================================================
+
+Regla general: mover monedas HACIA un exchange suele ser preludio de
+venta (se depositan para vender). Sacarlas del exchange (a cartera
+fria o staking) suele indicar intencion de mantener, no de vender.
+
+LECTURA:
+  - Salidas netas sostenidas de exchanges = acumulacion / HODL;
+    reduce la oferta liquida disponible para vender. Bullish a medio
+    plazo.
+  - Entradas netas sostenidas = presion vendedora potencial. El
+    retail tiende a mandar monedas a exchanges en momentos de miedo,
+    senal de intencion de salir.
+
+EJEMPLO ILUSTRATIVO (no es la base del razonamiento):
+  Durante una correccion, una parte alta de las transferencias
+  grandes va a cartera fria y la oferta presente en exchanges cae a
+  minimos. Eso indica que los grandes prefieren guardar antes que
+  vender: menos presion vendedora y mayor escasez.
+
+MATIZ IMPORTANTE:
+  Una entrada grande a un exchange NO siempre es venta. Puede ser
+  migracion de custodia, movimientos OTC o cambio de proveedor. Ante
+  un dato alarmante de entradas, lo correcto es cruzarlo con el saldo
+  real de las carteras de ballenas, no asumir venta automaticamente.
+
+
+================================================================
+BLOQUE W5. LA DIVERGENCIA BALLENAS-RETAIL (DINERO INTELIGENTE)
+ID: W5   Evidencia: [MODERADA]   Patron de psicologia de mercado
+================================================================
+
+El patron de mayor valor es la DIVERGENCIA entre lo que hacen las
+ballenas y lo que hace el retail. La idea clasica de "dinero
+inteligente frente a dinero del miedo":
+
+  - En SUELOS: las ballenas acumulan mientras el retail capitula y
+    vende por panico. Las ballenas absorben la oferta que suelta el
+    minorista asustado.
+  - En TECHOS: las ballenas distribuyen (venden) mientras el retail
+    compra por FOMO en plena euforia. El dinero inteligente sale
+    hacia el entusiasmo minorista.
+
+Por eso, la senal de mas conviccion aparece cuando las ballenas
+compran durante el panico o venden durante el FOMO; la divergencia
+entre el dinero inteligente y la emocion del retail es donde esta la
+informacion.
+
+EJEMPLO ILUSTRATIVO (no es la base del razonamiento):
+  El miedo y codicia esta en panico extremo y el retail vende,
+  mientras las cohortes de ballenas aumentan su saldo: divergencia
+  alcista de fondo. El caso opuesto: el precio sube con fuerza, el
+  retail compra euforico y las ballenas empiezan a mover monedas a
+  exchanges y a tomar beneficios: divergencia bajista, posible
+  distribucion.
+
+COMO LEER LA DIVERGENCIA:
+  - Ballenas comprando + retail vendiendo (miedo) = sesgo alcista de
+    fondo.
+  - Ballenas vendiendo + retail comprando (euforia) = sesgo bajista
+    de fondo.
+  - Ballenas y retail en la misma direccion = sin divergencia, la
+    senal de este bloque no aplica.
+
+
+================================================================
+BLOQUE W6. COMO CRUZARLO CON EL RESTO DEL SISTEMA
+ID: W6   Evidencia: [ESTRUCTURAL]   (guia de integracion)
+================================================================
+
+El comportamiento de ballenas refuerza o contradice las senales que
+ya maneja el sistema:
+
+  - Con el miedo y codicia: ballenas acumulando + miedo extremo del
+    retail es la combinacion clasica de suelo. Si el indicador
+    contrario del miedo y la acumulacion de ballenas apuntan a lo
+    mismo, la senal se refuerza.
+  - Con el drawdown desde maximos: un drawdown profundo que ademas
+    coincide con el precio cerca del coste medio de las ballenas (W2)
+    es zona de acumulacion mas fiable.
+  - Con el ratio ETH/BTC y la debilidad relativa: si ETH esta debil
+    pero las ballenas de ETH acumulan, hay tension entre la senal
+    relativa (bajista) y la on-chain (alcista de fondo). Hay que
+    senalar la discrepancia, no esconderla.
+  - Con las noticias y con lo que describa el usuario: usar W1-W5
+    para interpretar el dato con cabeza, no repetirlo sin mas.
+
+
+================================================================
+BLOQUE W7. EJEMPLO INTEGRADO: COMBINAR MIEDO, PRECIO Y BALLENAS
+ID: W7   Evidencia: [MODERADA]   (ejemplo de metodo, no plantilla)
+================================================================
+
+Este bloque NO es una regla nueva: ensena COMO combinar las senales
+de ballenas (W2, W5) con el miedo y codicia y con el drawdown desde
+maximos para llegar a una lectura de conjunto. Lo importante es el
+METODO de cruzar senales, no las cifras del caso.
+
+LA CONFIGURACION RECURRENTE DE SUELO (regla general):
+  Cuando coinciden a la vez:
+    - un drawdown profundo desde el maximo (zona de -70% a -85%),
+    - miedo extremo sostenido en el retail (indice de miedo y codicia
+      en valores muy bajos durante semanas),
+    - ballenas y tenedores de largo plazo acumulando (su saldo sube,
+      las reservas en exchanges caen),
+    - y retail capitulando (manda monedas a exchanges, vende),
+  el resultado es una DIVERGENCIA dinero inteligente / retail que
+  historicamente ha sido compatible con suelos de ciclo o fases de
+  acumulacion. Cada senal por separado dice poco; juntas se refuerzan.
+
+CASO ILUSTRATIVO (historico, no es lo que pasa hoy):
+  En el suelo bajista de 2022 las tres piezas encajaron: el indice de
+  miedo y codicia estuvo en valores de un solo digito, ETH habia caido
+  alrededor de un -80% desde su maximo (hasta la zona de ~880 USD en
+  junio y ~1.100 USD tras el colapso de FTX en noviembre), las
+  ballenas y los tenedores de largo plazo seguian acumulando, y el
+  retail capitulaba enviando monedas a los exchanges. Esa divergencia
+  precedio a la recuperacion posterior.
+  La misma configuracion reaparecio a principios de 2026: el indice de
+  miedo toco un minimo historico (un valor de 5, por debajo incluso de
+  Luna y FTX), ETH acumulaba alrededor de un -60% desde su maximo de
+  ~4.950 USD, las carteras grandes anadian ETH y las reservas en
+  exchanges caian a minimos. Mismo patron, distinto ciclo.
+
+COMO RAZONAR PASO A PASO (esto es lo que debes replicar):
+  1. Enumera las senales que te dan (miedo, precio/drawdown, ballenas,
+     retail, flujos de exchange).
+  2. Mira si APUNTAN A LO MISMO o se CONTRADICEN.
+  3. Si se alinean (p.ej. miedo extremo + ballenas comprando + retail
+     vendiendo), la lectura se refuerza; expresala en terminos de
+     probabilidad.
+  4. Si se contradicen (p.ej. ballenas vendiendo pero miedo extremo),
+     senala la discrepancia en vez de elegir una a ciegas.
+  5. Anade siempre el limite (siguiente parrafo).
+
+LIMITE HONESTO DE ESTE EJEMPLO:
+  El miedo extremo NO marca el suelo exacto. En 2022 el miedo se
+  mantuvo en zona extrema durante semanas y el precio aun cayo mas
+  antes de tocar fondo. La acumulacion de ballenas se construye en
+  semanas. Por eso esta combinacion identifica un REGIMEN (suelo o
+  acumulacion probable), no un dia ni un precio concreto de entrada.
+
+NOTA FINAL: aplica este METODO a los datos que te den hoy. No asumas
+que las cifras de este caso (el -80%, el miedo en 5, etc.) son las
+actuales; son solo el ejemplo que ilustra como se combinan las ideas.
+
+
+================================================================
+BLOQUE W-LIM. LIMITACIONES DEL SEGUIMIENTO DE BALLENAS
+ID: W-LIM   (parte esencial del documento)
+================================================================
+
+  - NO es una bola de cristal: la divergencia es una senal de
+    probabilidad con muchos falsos positivos.
+  - Las ballenas tambien se equivocan y distribuyen: una cohorte de
+    grandes tenedores puede tener fases de venta neta. No todo lo que
+    hace una ballena es acierto.
+  - Falsos positivos por custodia y OTC: muchos movimientos grandes
+    son cambios de custodia, acuerdos privados o reorganizacion de
+    carteras, sin relacion con la direccion del precio.
+  - Manipulacion (spoofing): un gran tenedor puede colocar ordenes
+    enormes para provocar panico o FOMO y luego cancelarlas, creando
+    senales falsas.
+  - Desfase y etiquetado: las etiquetas de cartera evolucionan; lo
+    que hoy se cuenta como "ballena" puede incluir soluciones de
+    custodia institucional o ETF.
+  - Tiempo: la acumulacion se construye en semanas; intentar cazar el
+    suelo exacto con un movimiento puntual es un error.
+  - El macro manda: un shock geopolitico o de politica monetaria
+    puede anular cualquier lectura on-chain de la noche a la manana.
+  - Dato no disponible en el snapshot actual: el sistema no recibe
+    datos on-chain en vivo. Este documento es contexto de
+    interpretacion, no una fuente de senal cuantitativa diaria.
+
+
+================================================================
+FIN DEL CONTEXTO DE BALLENAS Y RETAIL
+================================================================

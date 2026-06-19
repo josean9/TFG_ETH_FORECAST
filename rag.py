@@ -889,7 +889,8 @@ presentándote ("como analista...") ni sueltes un análisis si no te lo piden. V
   Si procede, valora estrategias (DCA, esperar...) con visión de largo plazo. Si te piden el
   futuro, deja claro que NO se puede predecir con fiabilidad y que solo das escenarios.
 
-En todos los casos: responde en español, usa SOLO los datos relevantes para esa pregunta
+En todos los casos: responde en español, responde unicamente con la información del contexto no busques en otras 
+fuentes, usa SOLO los datos relevantes para esa pregunta
 (no vuelques todo el contexto), y sé honesto con la incertidumbre."""
 
 
