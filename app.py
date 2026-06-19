@@ -661,7 +661,7 @@ with gr.Blocks(title="EtherForecast AI", fill_height=True) as demo:
             chatbot = gr.Chatbot(
                 height=540, show_label=False, elem_classes=["ef-chat"],
                 layout="bubble", avatar_images=(None, _ruta_avatar()),
-                sanitize_html=False, render_markdown=True, line_breaks=True,
+                sanitize_html=False, render_markdown=True, line_breaks=True, show_copy_button=False, 
                 placeholder="<div style='text-align:center'>"
                             "<div style='font-size:2rem; margin-bottom:6px'>⟠</div>"
                             "<strong style='font-size:1.05rem'>EtherForecast AI</strong><br>"

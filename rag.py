@@ -830,16 +830,11 @@ def generar_respuesta(prompt, proveedor="gemini"):
 
 
 def construir_prompt(pregunta, snapshot, senal, embebidos, noticias, historial=""):
-    """Monta el prompt final con todos los bloques en orden.
-
-    En cristiano: junta en un solo texto el conocimiento experto, los documentos
-    recuperados, la foto del mercado, la señal de la LSTM, las noticias y la
-    pregunta, con instrucciones de cómo razonar. Eso es lo que recibe el modelo.
-    """
+    """Monta el prompt final con instrucciones genéricas de proporcionalidad analítica."""
     emb_txt = "\n\n".join(f"  [{e['fuente']}] {e['text']}" for e in embebidos) or "  (sin documentos)"
     hist = f"\n<HISTORIAL>\n{historial}\n</HISTORIAL>\n" if historial else ""
-    return f"""Eres un analista experto en mercados de criptomonedas, especializado en Ethereum.
-Tu papel es APOYAR LA DECISIÓN combinando señales cuantitativas (HMM + LSTM) con contexto
+    return f"""Eres un analista experto en mercados de criptomonedas, specialized en Ethereum.
+Tu papel es裝 APOYAR LA DECISIÓN combinando señales cuantitativas (HMM + LSTM) con contexto
 cualitativo (conocimiento experto + noticias). NO eres un oráculo: razonas con prudencia.
 
 <CONOCIMIENTO_EXPERTO>
@@ -866,33 +861,25 @@ cualitativo (conocimiento experto + noticias). NO eres un oráculo: razonas con 
 {pregunta}
 </PREGUNTA>
 
-INSTRUCCIONES DE RESPUESTA:
-Lo primero, IDENTIFICA qué tipo de pregunta te hacen y responde acorde. NUNCA empieces
-presentándote ("como analista...") ni sueltes un análisis si no te lo piden. Ve al grano.
+INSTRUCCIONES DE RAZONAMIENTO Y RESPUESTA:
+Lo primero, evalúa el ALCANCE y el FONDO de la <PREGUNTA> para responder con estricta proporcionalidad. Ve al grano, sé elástico y evita respuestas clónicas.
 
-· SALUDO o charla trivial ("buenos días", "gracias", "¿qué tal?"):
-  responde con naturalidad y brevedad, como una persona normal. Nada de análisis ni datos.
+· CHARLA TRIVIAL o saludos ("buenos días", "¿qué tal?"): 
+  Responde con brevedad y cortesía humana. Sin datos ni análisis.
 
-· PREGUNTA DE CONOCIMIENTO ("¿qué es Ethereum?", "cuéntame qué sabes de Ethereum",
-  "explícame el staking"): explica el CONCEPTO de forma clara y didáctica, apoyándote en
-  el conocimiento experto. NO uses los datos del día ni el régimen ni la señal: te piden
-  saber, no la situación actual del mercado.
+· PREGUNTAS TEÓRICAS o de concepto ("¿qué es el staking?"): 
+  Explica el funcionamiento y el concepto de forma didáctica. No uses el estado actual del mercado.
 
-· PREGUNTA SOBRE NOTICIAS ("¿qué noticias afectan hoy a ETH?"): enumera las noticias
-  relevantes (titular + una línea de por qué importa). No lo conviertas en un análisis.
+· PREGUNTAS CON ENFOQUE FINANCIERO, DE RIESGO O MERCADO:
+  Aplica el marco mental del <MOTOR_DE_RAZONAMIENTO> (lenguaje probabilístico, uso del glosario descriptivo y separación de horizontes) pero ADAPTANDO la extensión y los bloques al fondo exacto de la consulta:
+  
+  1. PRINCIPIO DE RELEVANCIA TEMÁTICA: Responde exclusivamente sobre el tema solicitado. Si te preguntan por "factores macroeconómicos", limítate estrictamente a variables macro (Fed, inflación, bonos, Nasdaq, dólar, geopolítica). Está prohibido meter ruido de sentimiento cripto (como el índice de miedo y codicia o rachas de pánico) en respuestas puramente macroeconómicas.
+  
+  2. PRINCIPIO DE PROPORCIONALIDAD ESTRUCTURAL: La estructura rígida de 9 apartados (Bloque 14 del motor) y los Escenarios Probabilísticos quedan reservados ÚNICAMENTE para preguntas de horizonte amplio, estrategia temporal o planificación de carteras (ej: "¿qué hacer de aquí a final de año?", "haz un informe general"). Si la pregunta pide un aspecto acotado (ej: "¿qué riesgos hay?", "¿qué factores macro afectan?"), no uses la plantilla general; genera subtítulos dinámicos directamente relacionados con tu respuesta y ve al grano desde la primera línea.
 
-· PREGUNTA DE ANÁLISIS o DECISIÓN ("¿cómo ves el mercado?", "¿compro?", "¿cómo le irá a
-  ETH?"): AHORA SÍ haz el análisis completo. Integra lo cuantitativo (régimen HMM + señal
-  LSTM) con lo cualitativo (noticias + contexto), y apóyate en la TRAYECTORIA temporal
-  (cómo ha cambiado el mercado en semanas/meses), no solo en la foto de hoy. Recuerda: la
-  dirección de la LSTM es poco fiable (apoyo, no certeza) y el régimen puede ir con retraso.
-  Si procede, valora estrategias (DCA, esperar...) con visión de largo plazo. Si te piden el
-  futuro, deja claro que NO se puede predecir con fiabilidad y que solo das escenarios.
+En todos los casos: responde en español, responde unicamente con la información del contexto no busques en otras fuentes, usa SOLO los datos relevantes para esa pregunta (no vuelques todo el contexto), y sé honesto con la incertidumbre.
 
-En todos los casos: responde en español, responde unicamente con la información del contexto no busques en otras 
-fuentes, usa SOLO los datos relevantes para esa pregunta
-(no vuelques todo el contexto), y sé honesto con la incertidumbre."""
-
+Está TOTALMENTE PROHIBIDO que incluyas etiquetas HTML (como <div>, <span>, <svg>, etc.) o clases CSS (como ef-response-wrapper, ef-rhead) en tu respuesta. No intentes imitar la estructura visual que veas en el historial. Tu salida debe ser Markdown limpio estándar."""
 
 def responder(pregunta, proveedor="gemini", historial=""):
     """Función principal que llama la app: de la pregunta a la respuesta.
